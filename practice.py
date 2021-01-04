@@ -17,15 +17,19 @@ while True:
             sys.exit()
     screen.fill((0, 255, 255))
     wat = 0
-    times = 5
+    times = 3
     #pygame.draw.circle(screen, (255, 0, 0), (300, 50), 20)
     # 1024, 1 => 1023, 2 => 1022, 3
     #for i in range(width):
         #pygame.draw.line(screen, (255, 0, 0), (width - i, 0), (0, wat + 1))
         #wat += 1
 
-    for i in range(width // times):
-        pygame.draw.line(screen, (255, 0, 0), (width - i * times, 0), (0, wat + i * times))
+    for i in range(0, width, times):
+        pygame.draw.line(screen, (255, 0, 0), (width - i, 0), (0, wat + i))
+        wat += 1
+
+    for i in range(0, width, times):
+        pygame.draw.line(screen, (0, 255, 0), (width - i, 0), (0, i))
         wat += 1
     #pygame.draw.line(screen, (255, 0, 0), (width / 2, 0), (width / 2, height))
     #pygame.draw.line(screen, (255, 0, 0), (0, height / 2), (width, height / 2))
