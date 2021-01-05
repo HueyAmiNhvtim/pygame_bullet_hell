@@ -42,9 +42,11 @@ def color_bar(y, y_dir):
     for i in range(0, 256, 4):
         barcolour.append((0, 0, 255 - i))
 
+    # Draw the loading bar, one horizontal line at a time.
     for i in range(0, barheight):
-        pygame.draw.line(screen, barcolour[i], (0, y + i), (height, y + i))
+        pygame.draw.line(screen, barcolour[i], (0, y + i), (width, y + i))
 
+    # Reverse directions
     if y + barheight > height or y < 0:
         y_dir *= -1
     return y_dir
