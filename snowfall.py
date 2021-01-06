@@ -1,46 +1,42 @@
 import pygame
+from pygame.sprite import Sprite
 import sys
 import random as rdn
 
 
-class Snowflake:
-    def __init__(self, x, y, dx, dy):
-        self.x = x
+class Snowflake(Sprite):
+    def __init__(self, x, y, spood, background):
+        super().__init__()
         self.y = y
-        self.dx = dx
-        self.dy = dy
-        self.surface = pygame.image.load("Snowflake.bmp")
+        self.surface = pygame.image.load("snowflake.bmp")
+        self.rect = self.surface.get_rect()
+        self.rect.x = x
+        self.background = background
+        self.speed = spood
 
-    def move(self, background):
-        screenRect = background.get_rect()
-        coinRect = self.surface.get_rect()
-        self.x += self.dx
-        self.y += self.dy
-        #check to see if going off the screen
-        if self.x < 0:
-            self.dx *= -1
-        if self.x + coinRect.width > screenRect.width:
-            self.dx *= -1
-        if self.y < 0:
-            self.dy *= -1
-        if self.y + coinRect.height > screenRect.height:
-            self.dy *= -1
+    def update(self):
+        self.y += self.speed
+        self.rect.y = self.y
+
+    def draw_snow(self):
+        self.background.blit(self.surface, self.rect)
 
 
 width = 800
 height = 600
-size = 162
+size = 49
 FPS = 20  # control the speed of animation
 fpsClock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("First Pygame")
 
-my_snows = []
-for i in range(4):
-    x = size * i
+my_snows = pygame.sprite.Group()
+for i in range(width // size + 1):
+    x = i * size
     y = 0
-    my_snows.append(Snowflake(x, y, i+1, i+1))
+    speed = 2 * (i + 1)
+    my_snows.add(Snowflake(x, y, speed, screen))
 
 while True:
     for event in pygame.event.get():
@@ -52,9 +48,13 @@ while True:
                 pygame.quit()
                 sys.exit()
 
-    screen.fill((100, 25, 47)) #clears the screen by repainting it
-    for s in my_snows:
-        screen.blit(s.surface, (s.x, s.y))
-        s.move(screen)
-    pygame.display.update()
+    screen.fill((100, 25, 47))  # clears the screen by repainting it
+    my_snows.update()
+    for snow in my_snows:
+        if snow.rect.y > screen.get_height():
+            snow.y = 0
+    # Update position of all sprites, then draw them out.
+    for snow in my_snows:
+        snow.draw_snow()
+    pygame.display.flip()
     fpsClock.tick(FPS)

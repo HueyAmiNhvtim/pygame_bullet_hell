@@ -53,7 +53,7 @@ while True:
                 pygame.quit()
                 sys.exit()
 
-    screen.fill((100,25,47)) #clears the screen by repainting it
+    screen.fill((100, 25, 47)) #clears the screen by repainting it
     for c in my_coins:
         screen.blit(c.surface, (round(c.x), round(c.y)))
         c.move(screen)
