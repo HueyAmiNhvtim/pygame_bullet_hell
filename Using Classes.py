@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 import random as rdn
 
+
 class Coin(object):
     def __init__(self, x, y, dx, dy):
         self.x = x
@@ -10,7 +11,7 @@ class Coin(object):
         self.dy = dy
         self.surface = pygame.image.load("img.png")
 
-    def move(self,background):
+    def move(self, background):
         screenRect = screen.get_rect()
         coinRect = self.surface.get_rect()
         self.x += self.dx

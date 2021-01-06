@@ -37,10 +37,8 @@ screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("First Pygame")
 
 my_snows = []
-for i in range(5):
+for i in range(4):
     x = size * i
-    if x > screen.get_rect().width:
-        x = rdn.randint(0, width - size)
     y = 0
     my_snows.append(Snowflake(x, y, i+1, i+1))
 
