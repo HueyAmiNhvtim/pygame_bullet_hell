@@ -22,7 +22,7 @@ class Snowflake(Sprite):
         self.background.blit(self.surface, self.rect)
 
 
-width = 800
+width = 1200
 height = 600
 size = 49
 FPS = 20  # control the speed of animation
@@ -36,6 +36,7 @@ for i in range(width // size + 1):
     x = i * size
     y = 0
     speed = 2 * (i + 1)
+    print(speed)
     my_snows.add(Snowflake(x, y, speed, screen))
 
 while True:
@@ -50,10 +51,10 @@ while True:
 
     screen.fill((100, 25, 47))  # clears the screen by repainting it
     my_snows.update()
+    # Update position, then check, then draw if passed.
     for snow in my_snows:
         if snow.rect.y > screen.get_height():
             snow.y = 0
-    # Update position of all sprites, then draw them out.
     for snow in my_snows:
         snow.draw_snow()
     pygame.display.flip()
