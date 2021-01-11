@@ -8,7 +8,7 @@ class Snowflake(Sprite):
     def __init__(self, x, y, spood, background):
         super().__init__()
         self.y = y
-        self.surface = pygame.image.load("snowflake.bmp")
+        self.surface = pygame.image.load("stuff/snowflake.bmp")
         self.rect = self.surface.get_rect()
         self.rect.x = x
         self.background = background
@@ -28,7 +28,7 @@ size = 49
 FPS = 20  # control the speed of animation
 fpsClock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((width,height))
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("First Pygame")
 
 my_snows = pygame.sprite.Group()
