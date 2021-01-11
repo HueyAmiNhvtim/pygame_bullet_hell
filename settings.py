@@ -7,4 +7,10 @@ class Settings:
         self.bg_color = (49, 0, 71)
 
         # Ship settings
+        self.slow_scale = 1 / 3
+        self.initialize_dynamic_settings()
+
+    def initialize_dynamic_settings(self):
+        # For settings that can be changed during the game.
+        # Ship settings
         self.ship_speed = 5

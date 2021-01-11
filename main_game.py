@@ -36,6 +36,8 @@ class WhatIsThisAbomination:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -47,6 +49,14 @@ class WhatIsThisAbomination:
         if event.key == pygame.K_q:
             pygame.quit()
             sys.exit()
+        elif event.key == pygame.K_LSHIFT:
+            # Slow down ship by a constant rate if LSHIFT is pressed
+            self.settings.ship_speed *= self.settings.slow_scale
+
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_LSHIFT:
+            # Restore ship speed if LSHIFT is not pressed anymore
+            self.settings.ship_speed *= 1 / self.settings.slow_scale
 
 
 if __name__ == "__main__":
