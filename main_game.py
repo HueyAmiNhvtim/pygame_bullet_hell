@@ -78,6 +78,7 @@ class WhatIsThisAbomination:
             self.settings.ship_speed *= 1 / self.settings.slow_scale
 
     def _fire_bullet(self):
+        print("FIRED")
         bullet = Bullet(self)
         self.bullets.add(bullet)
 
