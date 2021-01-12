@@ -13,10 +13,14 @@ class Ship(Sprite):
         self.settings = main_game_class.settings
 
         self.image = pygame.image.load("images/ship.bmp")
+        self.core = pygame.image.load("images/core.bmp")
         self.rect = self.image.get_rect()
+        self.core_rect = self.core.get_rect()
 
-        # Start the ship at the middle bottom of the screen
+        # Start the ship at the middle bottom of the screen. Place the core in the middle of the ship
         self.rect.midbottom = self.screen_rect.midbottom
+        self.core_rect.centerx = self.rect.centerx
+        self.core_rect.y = self.rect.y - 5
 
         # Store decimal values for the ship positions
         self.x = float(self.rect.x)
@@ -24,6 +28,7 @@ class Ship(Sprite):
 
     def draw_ship(self):
         self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.core, self.core_rect)
 
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
@@ -46,3 +51,5 @@ class Ship(Sprite):
             self.y += 1 * self.settings.ship_speed
         self.rect.x = self.x
         self.rect.y = self.y
+        self.core_rect.centerx = self.rect.centerx
+        self.core_rect.top = self.rect.top + 5
