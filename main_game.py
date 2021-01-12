@@ -1,8 +1,10 @@
 import pygame
+from pygame.sprite import Group
 import sys
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 clock = pygame.time.Clock()
@@ -16,6 +18,8 @@ class WhatIsThisAbomination:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.ship = Ship(self)
 
+        # Bullet group.
+        self.bullets = Group()
         # Background colors. Hopefully will be replaced by animated frame I rip off from the Internet
         # oh god. the vectors. aaaaaaaaaaaaaaaa
         self.screen.fill(self.settings.bg_color)
@@ -41,14 +45,29 @@ class WhatIsThisAbomination:
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
+        self._update_bullets()
+        self._draw_bullets()
         self.ship.draw_ship()
         pygame.display.flip()
+
+    def _update_bullets(self):
+        for bullet in self.bullets:
+            if bullet.rect.y < 0:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))
+
+    def _draw_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets:
+            bullet.draw_bullet()  # False warning. Plz ignore.
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
         if event.key == pygame.K_q:
             pygame.quit()
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_LSHIFT:
             # Slow down ship by a constant rate if LSHIFT is pressed
             self.settings.ship_speed *= self.settings.slow_scale
@@ -57,6 +76,10 @@ class WhatIsThisAbomination:
         if event.key == pygame.K_LSHIFT:
             # Restore ship speed if LSHIFT is not pressed anymore
             self.settings.ship_speed *= 1 / self.settings.slow_scale
+
+    def _fire_bullet(self):
+        bullet = Bullet(self)
+        self.bullets.add(bullet)
 
 
 if __name__ == "__main__":

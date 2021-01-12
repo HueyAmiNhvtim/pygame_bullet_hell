@@ -8,6 +8,13 @@ class Settings:
 
         # Ship settings
         self.slow_scale = 1 / 3
+
+        # Bullet settings.
+        self.bullet_speed = 7
+        self.bullet_height = 15
+        self.bullet_width = 5
+        self.bullet_color = (0, 255, 0)
+
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
