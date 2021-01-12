@@ -32,22 +32,23 @@ class Ship(Sprite):
 
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
+        # Up - Left, Down-Right not firing bullets for some reason...
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] and self.rect.right <= self.screen_rect.right:
-            if keys[pygame.K_UP] and self.rect.top >= self.screen_rect.top:
+        if keys[pygame.K_d] and self.rect.right <= self.screen_rect.right:
+            if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
                 self.y -= 1 * self.settings.ship_speed
-            if keys[pygame.K_DOWN] and self.rect.bottom <= self.screen_rect.bottom:
+            elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
                 self.y += 1 * self.settings.ship_speed
             self.x += 1 * self.settings.ship_speed
-        elif keys[pygame.K_LEFT] and self.rect.left >= self.screen_rect.left:
-            if keys[pygame.K_UP] and self.rect.top >= self.screen_rect.top:
+        elif keys[pygame.K_a] and self.rect.left >= self.screen_rect.left:
+            if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
                 self.y -= 1 * self.settings.ship_speed
-            if keys[pygame.K_DOWN] and self.rect.bottom <= self.screen_rect.bottom:
+            elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
                 self.y += 1 * self.settings.ship_speed
             self.x -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_UP] and self.rect.top >= self.screen_rect.top:
+        elif keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
             self.y -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_DOWN] and self.rect.bottom <= self.screen_rect.bottom:
+        elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
         self.rect.x = self.x
         self.rect.y = self.y

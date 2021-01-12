@@ -46,8 +46,8 @@ class WhatIsThisAbomination:
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self._update_bullets()
-        self._draw_bullets()
         self.ship.draw_ship()
+        self._draw_bullets()
         pygame.display.flip()
 
     def _update_bullets(self):
@@ -66,7 +66,7 @@ class WhatIsThisAbomination:
         if event.key == pygame.K_q:
             pygame.quit()
             sys.exit()
-        elif event.key == pygame.K_SPACE:
+        elif event.key == pygame.K_RETURN:
             self._fire_bullet()
         elif event.key == pygame.K_LSHIFT:
             # Slow down ship by a constant rate if LSHIFT is pressed
@@ -78,7 +78,6 @@ class WhatIsThisAbomination:
             self.settings.ship_speed *= 1 / self.settings.slow_scale
 
     def _fire_bullet(self):
-        print("FIRED")
         bullet = Bullet(self)
         self.bullets.add(bullet)
 

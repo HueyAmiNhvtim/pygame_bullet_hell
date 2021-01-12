@@ -10,7 +10,7 @@ class Coin(object):
         self.y = y
         self.dx = dx
         self.dy = dy
-        self.surface = pygame.image.load("snowflake.bmp")
+        self.surface = pygame.image.load("stuff/snowflake.bmp")
         self.coin_rect = self.surface.get_rect()
         self.background = background
         self.backrect = self.background.get_rect()

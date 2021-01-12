@@ -9,7 +9,7 @@ vec = pygame.math.Vector2
 class Cannon(pygame.sprite.Sprite):
     def __init__(self, main_screen):
         super().__init__()  # Inherit the Sprite class's variables
-        self.image = pygame.image.load("Snowflake.bmp")
+        self.image = pygame.image.load("stuff/Snowflake.bmp")
         self.rect = self.image.get_rect()
         self.screen = main_screen
         self.rect.midbottom = main_screen.get_rect().midbottom
@@ -22,7 +22,7 @@ class Cannon(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("snowflake.bmp")
+        self.image = pygame.image.load("stuff/snowflake.bmp")
         self.rect = self.image.get_rect()
 
     def update(self):
@@ -32,7 +32,7 @@ class Bullet(pygame.sprite.Sprite):
 class Target(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("snowflake.bmp")
+        self.image = pygame.image.load("stuff/snowflake.bmp")
         self.rect = self.image.get_rect()
 
 
