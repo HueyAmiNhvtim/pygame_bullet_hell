@@ -33,18 +33,13 @@ class Ship(Sprite):
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
         # Up - Left, Down-Right not firing bullets for some reason...
+        # The above problem is due to ghosting issues on the keyboard...
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d] and self.rect.right <= self.screen_rect.right:
-            if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
-                self.y -= 1 * self.settings.ship_speed
-            elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
-                self.y += 1 * self.settings.ship_speed
+            self._update_vertical(keys)
             self.x += 1 * self.settings.ship_speed
         elif keys[pygame.K_a] and self.rect.left >= self.screen_rect.left:
-            if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
-                self.y -= 1 * self.settings.ship_speed
-            elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
-                self.y += 1 * self.settings.ship_speed
+            self._update_vertical(keys)
             self.x -= 1 * self.settings.ship_speed
         elif keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
             self.y -= 1 * self.settings.ship_speed
@@ -54,3 +49,9 @@ class Ship(Sprite):
         self.rect.y = self.y
         self.core_rect.centerx = self.rect.centerx
         self.core_rect.top = self.rect.top + 5
+
+    def _update_vertical(self, keys):
+        if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
+            self.y -= 1 * self.settings.ship_speed
+        elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
+            self.y += 1 * self.settings.ship_speed

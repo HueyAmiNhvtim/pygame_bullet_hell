@@ -2,9 +2,11 @@ import pygame
 from pygame.sprite import Group
 import sys
 
+# Maybe increase number of boolets to shoot per level. In the far future...
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 
 clock = pygame.time.Clock()
@@ -18,8 +20,10 @@ class WhatIsThisAbomination:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.ship = Ship(self)
 
-        # Bullet group.
+        # Groups.
         self.bullets = Group()
+        self.aliens = Group()
+
         # Background colors. Hopefully will be replaced by animated frame I rip off from the Internet
         # oh god. the vectors. aaaaaaaaaaaaaaaa
         self.screen.fill(self.settings.bg_color)
@@ -80,7 +84,11 @@ class WhatIsThisAbomination:
     def _check_keyup_events(self, event):
         if event.key == pygame.K_LSHIFT:
             # Restore ship speed if LSHIFT is not pressed anymore
-            self.settings.ship_speed *= 1 / self.settings.slow_scale
+            self.settings.ship_speed *= 1 / self.settings.slow_scale\
+
+    def _create_aliens(self):
+        """Create two aliens on the first row. In the future, might change"""
+        pass
 
 
 if __name__ == "__main__":

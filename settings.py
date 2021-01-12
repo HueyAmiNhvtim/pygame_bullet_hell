@@ -22,3 +22,7 @@ class Settings:
         # For settings that can be changed during the game.
         # Ship settings
         self.ship_speed = 5
+
+        # Alien settings
+        self.alien_speed = 3
+        self.alien_health = 10
