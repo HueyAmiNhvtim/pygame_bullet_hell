@@ -14,6 +14,7 @@ class Settings:
         self.bullet_height = 15
         self.bullet_width = 5
         self.bullet_color = (0, 255, 0)
+        self.boolet_limit = 5
 
         self.initialize_dynamic_settings()
 

@@ -50,6 +50,11 @@ class WhatIsThisAbomination:
         self._draw_bullets()
         pygame.display.flip()
 
+    def _fire_bullet(self):
+        if len(self.bullets) < self.settings.boolet_limit:
+            bullet = Bullet(self)
+            self.bullets.add(bullet)
+
     def _update_bullets(self):
         for bullet in self.bullets:
             if bullet.rect.y < 0:
@@ -77,9 +82,7 @@ class WhatIsThisAbomination:
             # Restore ship speed if LSHIFT is not pressed anymore
             self.settings.ship_speed *= 1 / self.settings.slow_scale
 
-    def _fire_bullet(self):
-        bullet = Bullet(self)
-        self.bullets.add(bullet)
+
 
 
 if __name__ == "__main__":
