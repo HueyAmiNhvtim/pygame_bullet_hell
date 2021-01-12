@@ -68,7 +68,7 @@ class WhatIsThisAbomination:
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
-        if event.key == pygame.K_q:
+        if event.key == pygame.K_ESCAPE:
             pygame.quit()
             sys.exit()
         elif event.key == pygame.K_RETURN:
@@ -81,8 +81,6 @@ class WhatIsThisAbomination:
         if event.key == pygame.K_LSHIFT:
             # Restore ship speed if LSHIFT is not pressed anymore
             self.settings.ship_speed *= 1 / self.settings.slow_scale
-
-
 
 
 if __name__ == "__main__":
