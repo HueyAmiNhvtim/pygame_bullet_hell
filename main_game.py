@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Group
 import sys
+import random as rdn
 
 # Maybe increase number of boolets to shoot per level. In the far future...
 from settings import Settings
@@ -12,8 +13,8 @@ from alien import Alien
 #        Summon aliens on both side of the screen. SYMMETRY FTW
 #        Make the aliens move on the screen using vectors.
 #        With vectors maybe I can do what I want, provided I don't procrastinate
-#        by playing Spanish Dark Souls
-# To be frank though, I'm kinda worried about my proj...
+#        by playing Spanish Dark Souls. AHHHHHHHHHHHHH
+# To be frank though, I'm kinda worried about my project...
 clock = pygame.time.Clock()
 
 
@@ -90,6 +91,7 @@ class WhatIsThisAbomination:
         if pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
             self.ship.respawn_ship()
         elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
+
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
         pass
 
@@ -129,7 +131,6 @@ class WhatIsThisAbomination:
         """Update alien_positions and draw them out..."""
         self.aliens.draw(self.screen)
         self._check_alien_bullet_collisions()
-        pass
 
     def _check_alien_bullet_collisions(self):
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, False)

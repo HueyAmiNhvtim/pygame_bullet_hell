@@ -6,7 +6,6 @@ class Ship(Sprite):
     def __init__(self, main_game_class):
         """Initialize the ship and its starting positions"""
         super().__init__()
-
         # Load parent's class necessary attributes. I think that is a correct term for it...
         self.screen = main_game_class.screen
         self.screen_rect = self.screen.get_rect()
