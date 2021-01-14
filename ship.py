@@ -64,3 +64,4 @@ class Ship(Sprite):
         self.rect.y = self.ship_rect.y + 5
         self.x = float(self.ship_rect.x)
         self.y = float(self.ship_rect.y)
+

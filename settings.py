@@ -25,4 +25,4 @@ class Settings:
 
         # Alien settings
         self.alien_speed = 3
-        self.alien_health = 10
+        self.alien_health = 5

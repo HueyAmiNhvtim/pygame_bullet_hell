@@ -8,7 +8,8 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
-
+# TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
+# To be frank though, I'm kinda worried about my proj...
 clock = pygame.time.Clock()
 
 
@@ -82,9 +83,10 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
-        if pygame.sprite.spritecollideany(self.ship, self.aliens) or \
-           pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
+        if pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
             self.ship.respawn_ship()
+        elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
         pass
 
     def _check_keydown_events(self, event):
@@ -126,7 +128,19 @@ class WhatIsThisAbomination:
         pass
 
     def _check_alien_bullet_collisions(self):
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, False)
+        if collisions:
+            for alien in list(collisions.values())[0]:  # False warning
+                alien.health -= 1
+                if alien.health == 0:
+                    self.aliens.remove(alien)
+
+        if len(self.aliens) == 0:
+            # Create new group. In the future, this is where enemies will gain new patterns
+            # and gain more strength in number. Provided I don't procrastinate by
+            # playing Spanish Dark Souls.
+            self._create_aliens()
+            self.ship.respawn_ship()
 
 
 if __name__ == "__main__":

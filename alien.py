@@ -19,6 +19,11 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
+        self.health = self.settings.alien_health
+
     def update(self):
         pass
 
+    def health_tooltip(self):
+        """Display health on top of the alien."""
+        pass
