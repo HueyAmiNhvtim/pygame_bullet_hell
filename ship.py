@@ -14,44 +14,53 @@ class Ship(Sprite):
 
         self.image = pygame.image.load("images/ship.bmp")
         self.core = pygame.image.load("images/core.bmp")
-        self.rect = self.image.get_rect()
-        self.core_rect = self.core.get_rect()
+        self.ship_rect = self.image.get_rect()
+        self.rect = self.core.get_rect()
 
         # Start the ship at the middle bottom of the screen. Place the core in the middle of the ship
-        self.rect.midbottom = self.screen_rect.midbottom
-        self.core_rect.centerx = self.rect.centerx
-        self.core_rect.y = self.rect.y - 5
+        self.ship_rect.midbottom = self.screen_rect.midbottom
+        self.rect.centerx = self.ship_rect.centerx
+        self.rect.top = self.ship_rect.top + 5
 
         # Store decimal values for the ship positions
-        self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
+        self.x = float(self.ship_rect.x)
+        self.y = float(self.ship_rect.y)
 
     def draw_ship(self):
-        self.screen.blit(self.image, self.rect)
-        self.screen.blit(self.core, self.core_rect)
+        self.screen.blit(self.image, self.ship_rect)
+        self.screen.blit(self.core, self.rect)
 
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
         # Up - Left, Down-Right not firing bullets for some reason...
         # The above problem is due to ghosting issues on the keyboard...
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d] and self.rect.right <= self.screen_rect.right:
+        if keys[pygame.K_d] and self.ship_rect.right <= self.screen_rect.right:
             self._update_vertical(keys)
             self.x += 1 * self.settings.ship_speed
-        elif keys[pygame.K_a] and self.rect.left >= self.screen_rect.left:
+        elif keys[pygame.K_a] and self.ship_rect.left >= self.screen_rect.left:
             self._update_vertical(keys)
             self.x -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
+        elif keys[pygame.K_w] and self.ship_rect.top >= self.screen_rect.top:
             self.y -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
+        elif keys[pygame.K_s] and self.ship_rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
-        self.rect.x = self.x
-        self.rect.y = self.y
-        self.core_rect.centerx = self.rect.centerx
-        self.core_rect.top = self.rect.top + 5
+        self.ship_rect.x = self.x
+        self.ship_rect.y = self.y
+        self.rect.centerx = self.ship_rect.centerx
+        self.rect.top = self.ship_rect.top + 5
 
     def _update_vertical(self, keys):
-        if keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
+        if keys[pygame.K_w] and self.ship_rect.top >= self.screen_rect.top:
             self.y -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
+        elif keys[pygame.K_s] and self.ship_rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
+
+    def respawn_ship(self):
+        """When ship is hit, respawn it at the midbottom of the screen.
+        In the future, will give invisbility_time. Maybe do some blinking as well."""
+        self.ship_rect.midbottom = self.screen_rect.midbottom
+        self.rect.centerx = self.ship_rect.centerx
+        self.rect.y = self.ship_rect.y + 5
+        self.x = float(self.ship_rect.x)
+        self.y = float(self.ship_rect.y)

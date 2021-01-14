@@ -18,15 +18,20 @@ class WhatIsThisAbomination:
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen_rect = self.screen.get_rect()
         self.ship = Ship(self)
 
         # Groups.
         self.bullets = Group()
         self.aliens = Group()
+        self.alien_bullet = Group()  # To account for bullets fired by the aliens
 
         # Background colors. Hopefully will be replaced by animated frame I rip off from the Internet
         # oh god. the vectors. aaaaaaaaaaaaaaaa
         self.screen.fill(self.settings.bg_color)
+
+        # Create aliens
+        self._create_aliens()
 
     def run_game(self):
         """Running the main loop of the game"""
@@ -50,7 +55,8 @@ class WhatIsThisAbomination:
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self._update_bullets()
-        self.ship.draw_ship()
+        self._update_ships()
+        self._update_aliens()
         self._draw_bullets()
         pygame.display.flip()
 
@@ -63,12 +69,23 @@ class WhatIsThisAbomination:
         for bullet in self.bullets:
             if bullet.rect.y < 0:
                 self.bullets.remove(bullet)
-        print(len(self.bullets))
+        # print(len(self.bullets))
 
     def _draw_bullets(self):
         self.bullets.update()
         for bullet in self.bullets:
             bullet.draw_bullet()  # False warning. Plz ignore.
+
+    def _update_ships(self):
+        self._check_ship_hit()
+        self.ship.draw_ship()
+
+    def _check_ship_hit(self):
+        """Check if ship hits aliens and/ or their bullets"""
+        if pygame.sprite.spritecollideany(self.ship, self.aliens) or \
+           pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
+            self.ship.respawn_ship()
+        pass
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
@@ -87,8 +104,29 @@ class WhatIsThisAbomination:
             self.settings.ship_speed *= 1 / self.settings.slow_scale\
 
     def _create_aliens(self):
-        """Create two aliens on the first row. In the future, might change"""
+        """Create row of aliens on the first row. In the future, might change"""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        available_space_x = self.screen_rect.width - 3 * alien_width
+        max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
+        for i in range(max_alien_per_row):
+            self._create_alien(i)
+
+    def _create_alien(self, column_number):
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width // 5 + (alien_width + alien_width // 5) * column_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
+
+    def _update_aliens(self):
+        """Update alien_positions and draw them out..."""
+        self.aliens.draw(self.screen)
+        self._check_alien_bullet_collisions()
         pass
+
+    def _check_alien_bullet_collisions(self):
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
 
 if __name__ == "__main__":

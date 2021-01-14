@@ -14,7 +14,7 @@ class Alien(Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = self.rect.width // 5
-        self.rect.y = self.rect.height
+        self.rect.y = self.rect.height * 2
 
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
