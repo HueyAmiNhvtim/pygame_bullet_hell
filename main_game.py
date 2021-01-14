@@ -9,6 +9,10 @@ from bullet import Bullet
 from alien import Alien
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
+#        Summon aliens on both side of the screen. SYMMETRY FTW
+#        Make the aliens move on the screen using vectors.
+#        With vectors maybe I can do what I want, provided I don't procrastinate
+#        by playing Spanish Dark Souls
 # To be frank though, I'm kinda worried about my proj...
 clock = pygame.time.Clock()
 
@@ -131,6 +135,8 @@ class WhatIsThisAbomination:
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, False)
         if collisions:
             for alien in list(collisions.values())[0]:  # False warning
+                # Minus health everytime alien is hit, which the reason why there is
+                # the boolean False as the parameters
                 alien.health -= 1
                 if alien.health == 0:
                     self.aliens.remove(alien)
@@ -138,7 +144,7 @@ class WhatIsThisAbomination:
         if len(self.aliens) == 0:
             # Create new group. In the future, this is where enemies will gain new patterns
             # and gain more strength in number. Provided I don't procrastinate by
-            # playing Spanish Dark Souls.
+            # playing Spanish Dark Souls, again.
             self._create_aliens()
             self.ship.respawn_ship()
 

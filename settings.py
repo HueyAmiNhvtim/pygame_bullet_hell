@@ -1,3 +1,6 @@
+# TO-DO:
+
+
 class Settings:
     """Store all settings for the main file"""
     def __init__(self):
@@ -25,4 +28,4 @@ class Settings:
 
         # Alien settings
         self.alien_speed = 3
-        self.alien_health = 5
+        self.alien_health = 3
