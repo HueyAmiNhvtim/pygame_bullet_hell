@@ -100,9 +100,18 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit_mask(self, object_hit):
         """Check if ship actually hits using masks"""
+        # Offset's there to basically push back the coordinates of the alien mask
+        # when checked with ship's mask, so as to provide a preemptive barrier (I think so...)
+        # in which the ship's mask's coordinates are checked for collisions with the alien's
         offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
+        # offset_x, offset_y = (self.ship.rect.left - object_hit.rect.left, self.ship.rect.top - object_hit.rect.top)
+        # print(offset_x, object_hit.rect.left, self.ship.rect.left)
+        # print(offset_y, object_hit.rect.top, self.ship.rect.top)
         actual_overlap = self.ship.mask.overlap(object_hit.mask, (offset_x, offset_y))
+        # actual_overlap = object_hit.mask.overlap(self.ship.mask, (wwwwoffset_x, offset_y))
+        print(actual_overlap)
         if actual_overlap:
+            # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
 
     def _check_keydown_events(self, event):
