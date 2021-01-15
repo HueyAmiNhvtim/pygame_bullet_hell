@@ -103,7 +103,7 @@ class WhatIsThisAbomination:
         # Offset's there to check for the compared's mask's relative position with the calling mask.
         # In a mask collision, the calling's mask's origin is at (0,0), hence the need to transform the
         # coordinates of the called mask into a relative one, which will then push away the alien's mask so as to
-        # get a more accurate rect detection.
+        # get a more accurate rect detection
         # If offset is (0, 0), the mask collide is going to act
         # exactly like a rect collide.
         # Create mask after rect detection to save run time.... Mask is expensive time-wise...
