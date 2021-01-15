@@ -102,14 +102,13 @@ class WhatIsThisAbomination:
         """Check if ship actually hits using masks"""
         # Offset's there to check for the compared's mask's relative position with the calling mask.
         # In a mask collision, the calling's mask's origin is at (0,0), hence the need to transform the
-        # coordinates of the called mask into a relative one.
+        # coordinates of the called mask into a relative one, which will then push away the alien's mask so as to
+        # get a more accurate rect detection.
+        # If offset is (0, 0), the mask collide is going to act
+        # exactly like a rect collide.
+        # Create mask after rect detection to save run time.... Mask is expensive time-wise...
         offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
-        # offset_x, offset_y = (self.ship.rect.left - object_hit.rect.left, self.ship.rect.top - object_hit.rect.top)
-        # print(offset_x, object_hit.rect.left, self.ship.rect.left)
-        # print(offset_y, object_hit.rect.top, self.ship.rect.top)
         actual_overlap = self.ship.mask.overlap(object_hit.mask, (offset_x, offset_y))
-        # actual_overlap = object_hit.mask.overlap(self.ship.mask, (wwwwoffset_x, offset_y))
-        print(actual_overlap)
         if actual_overlap:
             # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.

@@ -2,6 +2,12 @@ import pygame
 import numpy
 from pygame.sprite import Sprite
 from pygame import Vector2
+# TO-DO: Maybe do sth like this:
+# Set a random point within the boundary of the screen.
+# Create a vector heading towards that point.
+# Head using the speed specified in the settings. I suppose you can can used magnitude as
+# the speed of the alien, which should conform with the settings.
+# Once reached, spam boolets and then move to a new position.
 
 
 class Alien(Sprite):
