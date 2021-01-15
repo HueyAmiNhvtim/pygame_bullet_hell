@@ -21,6 +21,9 @@ class Ship(Sprite):
         self.rect.centerx = self.ship_rect.centerx
         self.rect.top = self.ship_rect.top + 5
 
+        # Mask just in case.
+        self.mask = pygame.mask.from_surface(self.core.convert_alpha())
+
         # Store decimal values for the ship positions
         self.x = float(self.ship_rect.x)
         self.y = float(self.ship_rect.y)

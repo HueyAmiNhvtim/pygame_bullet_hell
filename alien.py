@@ -13,6 +13,7 @@ class Alien(Sprite):
         self.image = pygame.image.load("images/alien_ph.bmp")
         self.rect = self.image.get_rect()
 
+        self.mask = pygame.mask.from_surface(self.image.convert_alpha())
         self.rect.x = self.rect.width // 5
         self.rect.y = self.rect.height * 2
 

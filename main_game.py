@@ -39,10 +39,15 @@ class WhatIsThisAbomination:
         # Create aliens
         self._create_aliens()
 
+        # Testing
+        self.caption = "Wat"
+        pygame.display.set_caption(self.caption)
+
     def run_game(self):
         """Running the main loop of the game"""
         while True:
             self._check_events()
+            self._display_fps()
             self.ship.update()
             self._update_screen()
             clock.tick(60)
@@ -91,9 +96,14 @@ class WhatIsThisAbomination:
         if pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
             self.ship.respawn_ship()
         elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._check_ship_hit_mask(alien_hit)  # False Warning
 
+    def _check_ship_hit_mask(self, object_hit):
+        """Check if ship actually hits using masks"""
+        offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
+        actual_overlap = self.ship.mask.overlap(object_hit.mask, (offset_x, offset_y))
+        if actual_overlap:
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
-        pass
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
@@ -148,6 +158,12 @@ class WhatIsThisAbomination:
             # playing Spanish Dark Souls, again.
             self._create_aliens()
             self.ship.respawn_ship()
+
+    def _display_fps(self):
+        """Show the program's FPS in the window handle.WILL DELETE LATER.
+        THANKS MEKIRE!"""
+        caption = f"{self.caption} - FPS: {clock.get_fps():.2f}"
+        pygame.display.set_caption(caption)
 
 
 if __name__ == "__main__":
