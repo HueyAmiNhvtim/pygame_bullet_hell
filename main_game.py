@@ -100,9 +100,9 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit_mask(self, object_hit):
         """Check if ship actually hits using masks"""
-        # Offset's there to basically push back the coordinates of the alien mask
-        # when checked with ship's mask, so as to provide a preemptive barrier (I think so...)
-        # in which the ship's mask's coordinates are checked for collisions with the alien's
+        # Offset's there to check for the compared's mask's relative position with the calling mask.
+        # In a mask collision, the calling's mask's origin is at (0,0), hence the need to transform the
+        # coordinates of the called mask into a relative one.
         offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
         # offset_x, offset_y = (self.ship.rect.left - object_hit.rect.left, self.ship.rect.top - object_hit.rect.top)
         # print(offset_x, object_hit.rect.left, self.ship.rect.left)
