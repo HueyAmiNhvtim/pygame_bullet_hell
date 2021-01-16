@@ -30,5 +30,5 @@ class Settings:
         self.ship_speed = 5
 
         # Alien settings
-        self.alien_speed = 30
+        self.alien_speed = 5
         self.alien_health = 3
