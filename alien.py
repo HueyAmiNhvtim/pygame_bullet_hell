@@ -1,7 +1,9 @@
 import pygame
 import numpy
+import time
 from pygame.sprite import Sprite
 from pygame import Vector2
+# TO-DO: Delay each sprite's action until time...
 # TO-DO: Maybe do sth like this:
 # Set a random point within the boundary of the screen.
 # Create a vector heading towards that point.
@@ -28,8 +30,52 @@ class Alien(Sprite):
 
         self.health = self.settings.alien_health
 
+        # Vector-based movement
+        self.vector = Vector2()
+        self.normalized_vector = Vector2()
+        self.destination = [0, 0]
+
+        # cooldown and last_time stuff
+        self.movement_cooldown = self.settings.movement_cooldown
+        self.last_time = pygame.time.get_ticks()
+
+        # Area allowed to move around.
+        self.boundary_x = (0, self.settings.screen_width - self.rect.width + 1)
+        self.boundary_y = (self.rect.y, self.settings.screen_height - self.rect.height + 1)
+
+        # Flags
+        self.movement_disabled = False
+
     def update(self):
-        pass
+        """This is where the alien will move. Will need to fix if reached destination"""
+        self._check_if_passed_destination()
+        if self.movement_disabled is False:
+            self.x += self.normalized_vector[0] * self.settings.alien_speed
+            self.y += self.normalized_vector[1] * self.settings.alien_speed
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.last_time = pygame.time.get_ticks()
+
+    def create_destination_and_vector(self):
+        """Upon creation of alien and when alien reaches a destination, create a new one"""
+        self.destination[0] = numpy.random.randint(0, self.boundary_x[1])
+        self.destination[1] = numpy.random.randint(self.boundary_y[0], self.boundary_y[1])
+        self.vector[0] = self.destination[0] - self.rect.x
+        self.vector[1] = self.destination[1] - self.rect.y
+        self.normalized_vector = self.vector.normalize()
+
+    def _check_if_passed_destination(self):
+        time_now = pygame.time.get_ticks()
+
+        # Use Vector to calculate the distance between the alien and the destination
+        dist_between_ob_dis = Vector2(self.destination[0] - self.rect.x, self.destination[1] - self.rect.y).magnitude()
+        # Alien_speed will act as a proximity surrounding the destination.
+        if dist_between_ob_dis <= self.settings.alien_speed:
+            if time_now - self.last_time >= self.movement_cooldown:
+                self.create_destination_and_vector()
+                self.movement_disabled = False
+            else:
+                self.movement_disabled = True
 
     def health_tooltip(self):
         """Display health on top of the alien."""

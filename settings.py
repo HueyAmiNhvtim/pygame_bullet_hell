@@ -10,9 +10,12 @@ class Settings:
         self.bg_color = (49, 0, 71)
 
         # Ship settings
-        self.slow_scale = 1 / 10
+        self.slow_scale = 1 / 5
 
-        # Bullet settings.
+        # Alien settings:
+        self.movement_cooldown = 3000
+
+        # Bullet - ship settings.
         self.bullet_speed = 7
         self.bullet_height = 15
         self.bullet_width = 5
@@ -27,5 +30,5 @@ class Settings:
         self.ship_speed = 5
 
         # Alien settings
-        self.alien_speed = 3
+        self.alien_speed = 30
         self.alien_health = 3
