@@ -11,6 +11,7 @@ class Bullet(Sprite):
 
         # Bullet as a rect object... First created it in 0,0, then correct the position.
         # ehh, it should be fast enough to not be noticeable
+        # self.image =
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = main_game.ship.rect.midtop
 
