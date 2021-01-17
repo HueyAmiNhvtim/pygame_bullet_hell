@@ -42,6 +42,9 @@ class WhatIsThisAbomination:
         self.caption = "Wat"
         pygame.display.set_caption(self.caption)
 
+        # Load resources
+        self.ship_bullet = pygame.image.load("images/bullet_ship.bmp")
+
     def run_game(self):
         """Running the main loop of the game"""
         while True:
