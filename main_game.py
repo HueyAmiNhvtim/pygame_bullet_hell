@@ -29,7 +29,7 @@ class WhatIsThisAbomination:
         # Groups.
         self.bullets = Group()
         self.aliens = Group()
-        self.alien_bullet = Group()  # To account for bullets fired by the aliens
+        self.alien_bullets = Group()  # To account for bullets fired by the aliens
 
         # Background colors. Hopefully will be replaced by animated frame I rip off from the Internet
         # oh god. the vectors. aaaaaaaaaaaaaaaa
@@ -42,8 +42,12 @@ class WhatIsThisAbomination:
         self.caption = "Wat"
         pygame.display.set_caption(self.caption)
 
-        # Load resources
+        # Load resources. I can't justify myself putting in the SpriteSheet code from
+        # the Net and given my time constraint, I have to do this ugly.
         self.ship_bullet = pygame.image.load("images/bullet_ship.bmp")
+        self.al_bullet_one = pygame.image.load("images/bullet_al.bmp")
+        self.al_bullet_two = pygame.image.load("images/bullet_al_2.bmp")
+        self.al_bullet_three = pygame.image.load("images/bullet_al_3.bmp")
 
     def run_game(self):
         """Running the main loop of the game"""
@@ -68,9 +72,11 @@ class WhatIsThisAbomination:
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self._update_bullets()
+        self._update_alien_bullets()
         self._update_ships()
         self._update_aliens()
         self._draw_bullets()
+        self._draw_alien_bullets()
         pygame.display.flip()
 
     def _fire_bullet(self):
@@ -84,10 +90,22 @@ class WhatIsThisAbomination:
                 self.bullets.remove(bullet)
         # print(len(self.bullets))
 
+    def _update_alien_bullets(self):
+        for bullet in self.alien_bullets:
+            if bullet.rect.y < 0 or bullet.rect.y > self.screen_rect.height:
+                self.alien_bullets.remove(bullet)
+            elif bullet.rect.x < 0 or bullet.rect.x > self.screen_rect.width:
+                self.alien_bullets.remove(bullet)
+
     def _draw_bullets(self):
         self.bullets.update()
         for bullet in self.bullets:
             bullet.draw_bullet()  # False warning. Plz ignore.
+
+    def _draw_alien_bullets(self):
+        self.alien_bullets.update()
+        for bullet in self.alien_bullets:
+            bullet.draw_bullet() # False warning. Plz ignore
 
     def _update_ships(self):
         self._check_ship_hit()
@@ -95,7 +113,7 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
-        if pygame.sprite.spritecollideany(self.ship, self.alien_bullet):
+        if pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
             self.ship.respawn_ship()
         elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._check_ship_hit_mask(alien_hit)  # False Warning

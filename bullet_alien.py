@@ -1,31 +1,49 @@
-import pygame
 from pygame.sprite import Sprite
+from pygame import Vector2
 
 
-class BulletAlien(Sprite):
+class BulletAlienUno(Sprite):
     """Bullet for the alien. First time using spritesheet"""
     """I'm guessing that each class is for different patterns"""
-    def __init__(self, main_game, alien):
+    def __init__(self, main_game):
         """Initialize attributes for the alien's boolets"""
         super().__init__()
         self.screen = main_game.screen
         self.settings = main_game.settings
-        self.shooter = alien
-        self.image = None
-        self.color = ''
+        self.image = main_game.al_bullet_one
 
         # Start each bullet out of the alien. This is where the alien will shoot the pattern
         self.rect = self.image.get_rect()
-        self.midbottom = alien.rect.midtop
+
+        # Vector movement for the bullet
+        self.vector = Vector2()
+        self.normalized_vector = Vector2()
 
         self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
 
     def draw_bullet(self):
         """Draw the boolet"""
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        """This is where different patterns have different kinds of update, huh"""
-        self.y -= self.settings.ali_bullet_speed
+        """Generic bullet update in 2D"""
+        self.x += self.normalized_vector[0] * self.settings.ali_bullet_speed
+        self.y += self.normalized_vector[1] * self.settings.ali_bullet_speed
+        self.rect.x = self.x
         self.rect.y = self.y
+
+
+class BulletAlienDos(BulletAlienUno):
+    """Exactly same class, just with different image"""
+    def __init__(self, main_game):
+        super().__init__(main_game)
+        self.image = main_game.al_bullet_two
+
+
+class BulletAlienTres(BulletAlienUno):
+    """Exactly same class, just with different image"""
+    def __init__(self, main_game):
+        super().__init__(main_game)
+        self.image = main_game.al_bullet_three
 
