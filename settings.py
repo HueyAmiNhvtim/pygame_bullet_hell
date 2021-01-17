@@ -22,6 +22,10 @@ class Settings:
         self.bullet_color = (0, 255, 0)
         self.boolet_limit = 4
 
+        # Bullet - alien settings
+        self.ali_bullet_speed = 7
+        self.ali_bullet_burst = 6
+
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
@@ -30,5 +34,5 @@ class Settings:
         self.ship_speed = 5
 
         # Alien settings
-        self.alien_speed = 5
+        self.alien_speed = 20
         self.alien_health = 3

@@ -1,12 +1,11 @@
 import pygame
 from pygame.sprite import Group
 import sys
-import random as rdn
 
 # Maybe increase number of boolets to shoot per level. In the far future...
 from settings import Settings
 from ship import Ship
-from bullet import Bullet
+from bullet_ship import Bullet
 from alien import Alien
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
@@ -149,9 +148,9 @@ class WhatIsThisAbomination:
     def _update_aliens(self):
         """Update alien_positions and draw them out..."""
         self.aliens.update()
-        #for alien in self.aliens:
-            #if alien.rect.y < 0 or alien.rect.y > self.settings.screen_height or alien.rect.x < 0 or alien.rect.x > self.settings.screen_width:
-                #sys.exit()
+        for alien in self.aliens:
+            if alien.rect.y < 0 or alien.rect.y > self.settings.screen_height or alien.rect.x < 0 or alien.rect.x > self.settings.screen_width:
+                sys.exit()
         self.aliens.draw(self.screen)
         self._check_alien_bullet_collisions()
 
