@@ -36,6 +36,7 @@ class BulletAlienUno(Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+
 class BulletAlienDos(BulletAlienUno):
     """Exactly same class, just with different image"""
     def __init__(self, main_game):

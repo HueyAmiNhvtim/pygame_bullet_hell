@@ -23,11 +23,11 @@ class Settings:
         self.boolet_limit = 4
 
         # Bullet - alien settings
-        self.ali_bullet_speed = 3
+        self.ali_bullet_speed = 1
         self.ali_burst_straight = 6  # How many bullets allowed in a straight burst
         self.burst_num = 3  # How many times to repeat a pattern
-        self.ali_bullet_cooldown = 50
-        self.burst_cooldown = 1000
+        self.ali_bullet_cooldown = 600
+        self.burst_cooldown = 2000
 
         self.initialize_dynamic_settings()
 
@@ -37,5 +37,5 @@ class Settings:
         self.ship_speed = 5
 
         # Alien settings
-        self.alien_speed = 10
+        self.alien_speed = 4
         self.alien_health = 3

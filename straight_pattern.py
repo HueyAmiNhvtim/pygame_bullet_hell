@@ -29,7 +29,7 @@ class StraightPattern:
         self.bullets_left = self.bullets_per_burst
         self.burst_left = self.burst_num
 
-    def shoot_burst(self, alien_midbottom):
+    def shoot_burst(self):
         """Shoot the boolet in burst of straight line. Do it like the alien_movement cooldown"""
         self._check_burst_cooldown()
         """yeah, I have to check if any bursts left to move onto next pattern"""
@@ -40,7 +40,7 @@ class StraightPattern:
                 self._check_bullet_cooldown()
                 if not self.shoot_disabled:
                     # Shoot a bullet and then disable the shooting ability until cooldown
-                    self.shoot_boolet(alien_midbottom)
+                    self.shoot_boolet()
                     self.last_bullet_fired = pygame.time.get_ticks()
                     self.bullets_left -= 1
                     self.shoot_disabled = True
@@ -51,10 +51,10 @@ class StraightPattern:
                 self.burst_left -= 1
                 self.burst_disabled = True
 
-    def shoot_boolet(self, alien_midbottom):
+    def shoot_boolet(self):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
         bullet = BulletAlienUno(self.main_game, shooter=self.shooter)
-        bullet.vector[0], bullet.vector[1] = 0, 1  # Set the vector to shoot straight down
+        bullet.vector[0], bullet.vector[1] = self.main_game.ship.x - bullet.rect.x, self.main_game.ship.y - bullet.rect.y  # Set the vector to shoot straight down
         bullet.normalized_vector = bullet.vector.normalize()
         self.main_game.alien_bullets.add(bullet)
 
