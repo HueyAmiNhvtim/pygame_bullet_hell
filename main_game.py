@@ -14,7 +14,7 @@ from alien import Alien
 #        With vectors maybe I can do what I want, provided I don't procrastinate
 #        by playing Spanish Dark Souls. AHHHHHHHHHHHHH
 # TO-DO:
-#       URGENT: INVINCIBILITY MECHANIC: When ship respawn, set an invisbility timer. During that time,
+#       Make the ship blink faster...
 #       ship will be invincible to the boolets.
 #       Event queue for each aliens. Basically consist of events. Use deque for this, I guess. Use burst-left as
 #       indicator for a need to move onto another pattern.
@@ -140,6 +140,7 @@ class WhatIsThisAbomination:
         offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
         actual_overlap = self.ship.mask.overlap(object_hit.mask, (offset_x, offset_y))
         if actual_overlap:
+            # Respawn ship and then set a marker to act for invincible cooldown period.
             # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
             self.ship.start_respawn_time = pygame.time.get_ticks()
