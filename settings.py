@@ -26,8 +26,8 @@ class Settings:
 
         # Bullet - alien settings
         self.ali_bullet_speed = 1
-        self.ali_burst_straight = 5   # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
-        self.burst_num = 3  # How many times to repeat a pattern
+        self.ali_burst_straight = 7   # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
+        self.burst_num = 5  # How many times to repeat a pattern
         self.ali_bullet_cooldown = 200
         self.burst_cooldown = 3000
 
