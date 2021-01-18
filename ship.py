@@ -28,9 +28,16 @@ class Ship(Sprite):
         self.x = float(self.ship_rect.x)
         self.y = float(self.ship_rect.y)
 
-    def draw_ship(self):
-        self.screen.blit(self.image, self.ship_rect)
-        self.screen.blit(self.core, self.rect)
+        # Flags:
+        self.god_mode = False
+        self.start_respawn_time = pygame.time.get_ticks()
+
+        # Invisibility settings
+        self.alpha = 255  # 255: opaque, 0: transparent
+        self.god_time = self.settings.god_time
+        self.frame_timer = 0  # For decreasing and increasing alpha
+        self.alpha_modifier = 255 // (self.settings.FPS // 2)
+        self.up = False  # Boolean to detect whether to increase opacity or not
 
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
@@ -57,6 +64,36 @@ class Ship(Sprite):
             self.y -= 1 * self.settings.ship_speed
         elif keys[pygame.K_s] and self.ship_rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
+
+    def draw_ship(self):
+        self._check_invisibility_time()  # Blinking is a part of ship drawing, so I put it here.
+        if self.god_mode:
+            self._blink_ship()
+        self.screen.blit(self.image, self.ship_rect)
+        self.screen.blit(self.core, self.rect)
+
+    def _blink_ship(self):
+        """To denote that the ship is invincible after respawning"""
+        # Decrease then increase transparency
+        if self.frame_timer == self.settings.FPS // 2:
+            self.frame_timer = 0
+            self.up = not self.up   # Reverse boolean. Ship will go transparent first anyway
+
+        if self.up:
+            self.alpha += self.alpha_modifier
+        else:
+            self.alpha -= self.alpha_modifier
+        self.image.set_alpha(self.alpha)
+        self.frame_timer += 1
+
+    def _check_invisibility_time(self):
+        now = pygame.time.get_ticks()
+        if now - self.start_respawn_time >= self.god_time:
+            self.god_mode = False
+            self.frame_timer = 0
+            self.up = False
+            self.alpha = 255
+            self.image.set_alpha(255)  # Put the ship into opaque mode, now.
 
     def respawn_ship(self):
         """When ship is hit, respawn it at the midbottom of the screen.

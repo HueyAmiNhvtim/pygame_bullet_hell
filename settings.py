@@ -8,9 +8,11 @@ class Settings:
         self.screen_width = 1050
         self.screen_height = 700
         self.bg_color = (49, 0, 71)
+        self.FPS = 60
 
         # Ship settings
         self.slow_scale = 1 / 4
+        self.god_time = 3000
 
         # Alien settings:
         self.movement_cooldown = 500
@@ -24,7 +26,7 @@ class Settings:
 
         # Bullet - alien settings
         self.ali_bullet_speed = 1
-        self.ali_burst_straight = 5  # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
+        self.ali_burst_straight = 5   # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.burst_num = 3  # How many times to repeat a pattern
         self.ali_bullet_cooldown = 200
         self.burst_cooldown = 3000

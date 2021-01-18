@@ -62,7 +62,7 @@ class WhatIsThisAbomination:
             self._display_fps()
             self.ship.update()
             self._update_screen()
-            clock.tick(60)
+            clock.tick(self.settings.FPS)
 
     def _check_events(self):
         """Check for key presses for menu navigation."""
@@ -121,10 +121,11 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
-        if bullet_hit := pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
-            self._check_ship_hit_mask(bullet_hit)   # False warning
-        elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
-            self._check_ship_hit_mask(alien_hit)  # False Warning
+        if not self.ship.god_mode:
+            if bullet_hit := pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
+                self._check_ship_hit_mask(bullet_hit)   # False warning
+            elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
+                self._check_ship_hit_mask(alien_hit)  # False Warning
 
     def _check_ship_hit_mask(self, object_hit):
         """Check if ship actually hits using masks"""
@@ -140,6 +141,7 @@ class WhatIsThisAbomination:
         if actual_overlap:
             # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
+            self.ship.god_mode = True
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
@@ -164,8 +166,8 @@ class WhatIsThisAbomination:
         available_space_x = self.screen_rect.width - 3 * alien_width
         max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
         # for j in range(2):
-        #   for i in range(max_alien_per_row):
-            #   self._create_alien(i)
+            # for i in range(max_alien_per_row):
+                # self._create_alien(i)
 
         for i in range(max_alien_per_row - 4):
             self._create_alien(i)
