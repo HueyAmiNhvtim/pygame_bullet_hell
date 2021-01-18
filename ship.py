@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+# There's a bug in invincibilty frame...
 
 
 class Ship(Sprite):
@@ -88,6 +89,7 @@ class Ship(Sprite):
 
     def _check_invisibility_time(self):
         now = pygame.time.get_ticks()
+        # I think the god_mode bug is in here... I think I didn't put the start_respawn_timer here
         if now - self.start_respawn_time >= self.god_time:
             self.god_mode = False
             self.frame_timer = 0

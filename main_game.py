@@ -118,6 +118,7 @@ class WhatIsThisAbomination:
     def _update_ships(self):
         self._check_ship_hit()
         self.ship.draw_ship()
+        print(self.ship.god_mode)
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
@@ -141,6 +142,7 @@ class WhatIsThisAbomination:
         if actual_overlap:
             # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
+            self.ship.start_respawn_time = pygame.time.get_ticks()
             self.ship.god_mode = True
 
     def _check_keydown_events(self, event):
