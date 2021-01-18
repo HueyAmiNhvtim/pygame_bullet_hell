@@ -18,7 +18,7 @@ class BulletAlienUno(Sprite):
         # Vector movement for the bullet
         self.vector = Vector2()
         self.normalized_vector = Vector2()
-
+        # print(self.vector)
         self.y = float(self.rect.y)
         self.x = float(self.rect.x)
 
@@ -32,6 +32,7 @@ class BulletAlienUno(Sprite):
         self.y += self.normalized_vector[1] * self.settings.ali_bullet_speed
         self.rect.x = self.x
         self.rect.y = self.y
+        # print(self.normalized_vector)
 
 
 class BulletAlienDos(BulletAlienUno):
