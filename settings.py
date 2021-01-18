@@ -10,7 +10,7 @@ class Settings:
         self.bg_color = (49, 0, 71)
 
         # Ship settings
-        self.slow_scale = 1 / 5
+        self.slow_scale = 1 / 4
 
         # Alien settings:
         self.movement_cooldown = 500
@@ -24,10 +24,10 @@ class Settings:
 
         # Bullet - alien settings
         self.ali_bullet_speed = 1
-        self.ali_burst_straight = 6  # How many bullets allowed in a straight burst
+        self.ali_burst_straight = 5  # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.burst_num = 3  # How many times to repeat a pattern
-        self.ali_bullet_cooldown = 600
-        self.burst_cooldown = 2000
+        self.ali_bullet_cooldown = 200
+        self.burst_cooldown = 3000
 
         self.initialize_dynamic_settings()
 

@@ -39,14 +39,14 @@ class BulletAlienUno(Sprite):
 
 class BulletAlienDos(BulletAlienUno):
     """Exactly same class, just with different image"""
-    def __init__(self, main_game):
-        super().__init__(main_game)
+    def __init__(self, main_game, shooter):
+        super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_two
 
 
 class BulletAlienTres(BulletAlienUno):
     """Exactly same class, just with different image"""
-    def __init__(self, main_game):
-        super().__init__(main_game)
+    def __init__(self, main_game, shooter):
+        super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_three
 

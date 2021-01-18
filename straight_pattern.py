@@ -1,9 +1,6 @@
 import pygame
 from bullet_alien import BulletAlienUno
 
-# TO-DO:
-# Event queue for each aliens. Basically consist of events. Use deque for this, I guess.
-
 
 class StraightPattern:
     """A pattern class for shooting boolets in a straightline"""
@@ -54,7 +51,8 @@ class StraightPattern:
     def shoot_boolet(self):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
         bullet = BulletAlienUno(self.main_game, shooter=self.shooter)
-        bullet.vector[0], bullet.vector[1] = self.main_game.ship.x - bullet.rect.x, self.main_game.ship.y - bullet.rect.y  # Set the vector to shoot straight down
+        bullet.vector[0] = self.main_game.ship.x - bullet.rect.x
+        bullet.vector[1] = self.main_game.ship.y - bullet.rect.y  # Set the vector to aim at the ship's position
         bullet.normalized_vector = bullet.vector.normalize()
         self.main_game.alien_bullets.add(bullet)
 

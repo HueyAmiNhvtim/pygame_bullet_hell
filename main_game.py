@@ -13,6 +13,12 @@ from alien import Alien
 #        Make the aliens move on the screen using vectors.
 #        With vectors maybe I can do what I want, provided I don't procrastinate
 #        by playing Spanish Dark Souls. AHHHHHHHHHHHHH
+# TO-DO:
+#       URGENT: INVINCIBILITY MECHANIC: When ship respawn, set an invisbility timer. During that time,
+#       ship will be invincible to the boolets.
+#       Event queue for each aliens. Basically consist of events. Use deque for this, I guess. Use burst-left as
+#       indicator for a need to move onto another pattern.
+#       Make moar patterns.... The tri non-homing one, the 360 no scope one, and then, the, uhm...
 # To be frank though, I'm kinda worried about my project...
 clock = pygame.time.Clock()
 
@@ -103,7 +109,6 @@ class WhatIsThisAbomination:
             bullet.draw_bullet()  # False warning. Plz ignore.
 
     def _draw_alien_bullets(self):
-        """Line 108 seems to have a problem..."""
         self.alien_bullets.update()
         for bullet in self.alien_bullets:
             bullet.draw_bullet()  # False warning. Plz ignore
@@ -162,7 +167,7 @@ class WhatIsThisAbomination:
         #   for i in range(max_alien_per_row):
             #   self._create_alien(i)
 
-        for i in range(max_alien_per_row - 2):
+        for i in range(max_alien_per_row - 4):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
