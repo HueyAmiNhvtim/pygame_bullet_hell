@@ -155,14 +155,17 @@ class WhatIsThisAbomination:
         alien_width, alien_height = alien.rect.size
         available_space_x = self.screen_rect.width - 3 * alien_width
         max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
-        for i in range(max_alien_per_row):
-            self._create_alien(i)
+        for j in range(2):
+            for i in range(max_alien_per_row):
+                self._create_alien(i, j)
 
-    def _create_alien(self, column_number):
+    def _create_alien(self, column_number, row_number):
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width // 5 + (alien_width + alien_width // 5) * column_number
+        alien.y = alien.rect.height + (alien_height + alien_height // 5) * row_number
         alien.rect.x = alien.x
+        alien.rect.y = alien.y
         alien.create_destination_and_vector()
         self.aliens.add(alien)
 

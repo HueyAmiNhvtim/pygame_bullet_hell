@@ -2,6 +2,7 @@ import pygame
 import numpy
 from pygame.sprite import Sprite
 from pygame import Vector2
+from straight_pattern import StraightPattern
 # TO-DO: Delay each sprite's action until time...
 # TO-DO: Maybe do sth like this:
 # Set a random point within the boundary of the screen.
@@ -65,7 +66,6 @@ class Alien(Sprite):
 
     def _check_if_passed_destination(self):
         time_now = pygame.time.get_ticks()
-        
         # Use Vector to calculate the distance between the alien and the destination
         dist_between_ob_dis = Vector2(self.destination[0] - self.rect.x, self.destination[1] - self.rect.y).magnitude()
         # Alien_speed will act as a proximity surrounding the destination.
