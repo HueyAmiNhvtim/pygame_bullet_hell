@@ -7,11 +7,11 @@ from bullet_alien import BulletAlienUno
 
 class StraightPattern:
     """A pattern class for shooting boolets in a straightline"""
-    def __init__(self, alien, main_game):
+    def __init__(self, main_game, shooter):
         self.main_game = main_game
         self.screen = main_game.screen
         self.settings = main_game.settings
-        self.shooter = alien
+        self.shooter = shooter
 
         # Flags to use in tandem with cooldown
         self.burst_disabled = False  # This for delay between burst
@@ -29,7 +29,7 @@ class StraightPattern:
         self.bullets_left = self.bullets_per_burst
         self.burst_left = self.burst_num
 
-    def shoot_burst(self):
+    def shoot_burst(self, alien_midbottom):
         """Shoot the boolet in burst of straight line. Do it like the alien_movement cooldown"""
         self._check_burst_cooldown()
         """yeah, I have to check if any bursts left to move onto next pattern"""
@@ -40,8 +40,9 @@ class StraightPattern:
                 self._check_bullet_cooldown()
                 if not self.shoot_disabled:
                     # Shoot a bullet and then disable the shooting ability until cooldown
-                    self.shoot_boolet()
+                    self.shoot_boolet(alien_midbottom)
                     self.last_bullet_fired = pygame.time.get_ticks()
+                    self.bullets_left -= 1
                     self.shoot_disabled = True
             else:
                 # If burst is finished reset burst and recorded last burst_time.
@@ -50,11 +51,11 @@ class StraightPattern:
                 self.burst_left -= 1
                 self.burst_disabled = True
 
-    def shoot_boolet(self):
+    def shoot_boolet(self, alien_midbottom):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
-        bullet = BulletAlienUno(self.main_game)
-        bullet.rect.midtop = self.shooter.rect.midbottom
+        bullet = BulletAlienUno(self.main_game, shooter=self.shooter)
         bullet.vector[0], bullet.vector[1] = 0, 1  # Set the vector to shoot straight down
+        bullet.normalized_vector = bullet.vector.normalize()
         self.main_game.alien_bullets.add(bullet)
 
     def _check_burst_cooldown(self):

@@ -103,9 +103,12 @@ class WhatIsThisAbomination:
             bullet.draw_bullet()  # False warning. Plz ignore.
 
     def _draw_alien_bullets(self):
+        """Line 108 seems to have a problem..."""
         self.alien_bullets.update()
         for bullet in self.alien_bullets:
-            bullet.draw_bullet() # False warning. Plz ignore
+            bullet.draw_bullet()  # False warning. Plz ignore
+            # print(bullet.rect.midbottom)
+        # print(len(self.alien_bullets))
 
     def _update_ships(self):
         self._check_ship_hit()
@@ -113,8 +116,8 @@ class WhatIsThisAbomination:
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
-        if pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
-            self.ship.respawn_ship()
+        if bullet_hit := pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
+            self._check_ship_hit_mask(bullet_hit)   # False warning
         elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._check_ship_hit_mask(alien_hit)  # False Warning
 
@@ -155,11 +158,14 @@ class WhatIsThisAbomination:
         alien_width, alien_height = alien.rect.size
         available_space_x = self.screen_rect.width - 3 * alien_width
         max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
-        for j in range(2):
-            for i in range(max_alien_per_row):
-                self._create_alien(i, j)
+        # for j in range(2):
+        #   for i in range(max_alien_per_row):
+            #   self._create_alien(i)
 
-    def _create_alien(self, column_number, row_number):
+        for i in range(max_alien_per_row):
+            self._create_alien(i)
+
+    def _create_alien(self, column_number, row_number=0):
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width // 5 + (alien_width + alien_width // 5) * column_number

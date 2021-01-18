@@ -46,8 +46,12 @@ class Alien(Sprite):
         # Flags
         self.movement_disabled = False
 
+        # Placeholder pattern
+        self.first_pattern = StraightPattern(main_game, self)
+
     def update(self):
         """This is where the alien will move. Will need to fix if reached destination"""
+        self.first_pattern.shoot_burst(self.rect.midbottom)
         self._check_if_passed_destination()
         if self.movement_disabled is False:
             self.x += self.normalized_vector[0] * self.settings.alien_speed

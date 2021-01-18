@@ -37,15 +37,15 @@ class Ship(Sprite):
         # Up - Left, Down-Right not firing bullets for some reason...
         # The above problem is due to ghosting issues on the keyboard...
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_d] and self.ship_rect.right <= self.screen_rect.right:
+        if keys[pygame.K_d] and self.rect.right <= self.screen_rect.right:
             self._update_vertical(keys)
             self.x += 1 * self.settings.ship_speed
-        elif keys[pygame.K_a] and self.ship_rect.left >= self.screen_rect.left:
+        elif keys[pygame.K_a] and self.rect.left >= self.screen_rect.left:
             self._update_vertical(keys)
             self.x -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_w] and self.ship_rect.top >= self.screen_rect.top:
+        elif keys[pygame.K_w] and self.rect.top >= self.screen_rect.top:
             self.y -= 1 * self.settings.ship_speed
-        elif keys[pygame.K_s] and self.ship_rect.bottom <= self.screen_rect.bottom:
+        elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
         self.ship_rect.x = self.x
         self.ship_rect.y = self.y
