@@ -29,8 +29,8 @@ class Settings:
         self.ali_bullet_speed = 1
         self.ali_burst_straight = 5   # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.burst_num = 5  # How many times to repeat a pattern
-        self.ali_bullet_cooldown = 100
-        self.burst_cooldown = 100
+        self.ali_bullet_cooldown = 300
+        self.burst_cooldown = 5
 
         self.initialize_dynamic_settings()
 

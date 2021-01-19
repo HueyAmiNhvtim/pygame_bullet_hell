@@ -144,6 +144,7 @@ class WhatIsThisAbomination:
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
             self.ship.start_respawn_time = pygame.time.get_ticks()
             self.ship.god_mode = True
+            # print("HIT!", self.ship.god_mode)
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
@@ -171,7 +172,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(max_alien_per_row - 14):
+        for i in range(max_alien_per_row - 4):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
@@ -187,10 +188,6 @@ class WhatIsThisAbomination:
     def _update_aliens(self):
         """Update alien_positions and draw them out..."""
         self.aliens.update()
-        # The loop is to make sure that the position chosen is not screwed up.
-        for alien in self.aliens:
-            if alien.rect.y < 0 or alien.rect.y > self.settings.screen_height or alien.rect.x < 0 or alien.rect.x > self.settings.screen_width:
-                sys.exit()
         self.aliens.draw(self.screen)
         self._check_alien_bullet_collisions()
 

@@ -39,7 +39,7 @@ class Ship(Sprite):
         self.alpha = 255  # 255: opaque, 0: transparent
         self.god_time = self.settings.god_time
         self.frame_timer = 0  # For decreasing and increasing alpha
-        self.alpha_modifier = 255 // (self.settings.FPS // 2)
+        self.alpha_modifier = 255 // (self.settings.FPS // 4)
         self.up = False  # Boolean to detect whether to increase opacity or not
 
     def update(self):
@@ -76,13 +76,13 @@ class Ship(Sprite):
         self.screen.blit(self.image, self.ship_rect)
         self.screen.blit(self.hit_box_surface, self.hit_box)
         self.screen.blit(self.core, self.rect)
-        print(self.hit_box.width, self.hit_box.height)
+        #print(self.god_mode)
         #print(self.hit_box.center, self.rect.center)
 
     def _blink_ship(self):
         """To denote that the ship is invincible after respawning"""
         # Decrease then increase transparency
-        if self.frame_timer == self.settings.FPS // 2:
+        if self.frame_timer == self.settings.FPS // 4:
             self.frame_timer = 0
             self.up = not self.up   # Reverse boolean. Ship will go transparent first anyway
 
