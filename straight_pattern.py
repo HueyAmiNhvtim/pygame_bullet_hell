@@ -47,12 +47,13 @@ class StraightPattern:
                 self.last_burst_fired = pygame.time.get_ticks()
                 self.burst_left -= 1
                 self.burst_disabled = True
+        print(self.burst_left)
 
     def shoot_boolet(self):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
         bullet = BulletAlienUno(self.main_game, shooter=self.shooter)
-        bullet.vector[0] = self.main_game.ship.x - bullet.rect.x
-        bullet.vector[1] = self.main_game.ship.y - bullet.rect.y  # Set the vector to aim at the ship's position
+        bullet.vector[0] = self.main_game.ship.rect.x - bullet.rect.x
+        bullet.vector[1] = self.main_game.ship.rect.y - bullet.rect.y  # Set the vector to aim at the ship's position
         bullet.normalized_vector = bullet.vector.normalize()
         self.main_game.alien_bullets.add(bullet)
 

@@ -22,7 +22,6 @@ class TriPattern:
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
         self.angle = self.settings.angle_between_stream
-
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
         self.burst_left = self.burst_num
@@ -58,7 +57,7 @@ class TriPattern:
             bullet.vector[1] = 1
             bullet.normalized_vector = bullet.vector.normalize()
             bullet.normalized_vector.rotate(angle)
-            angle -= angle
+            angle -= self.angle
             self.main_game.alien_bullets.add(bullet)
 
     def _check_burst_cooldown(self):

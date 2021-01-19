@@ -16,7 +16,7 @@ class Settings:
         self.circle_color = (105, 105, 105)
 
         # Alien settings:
-        self.movement_cooldown = 500
+        self.movement_cooldown = 5000
 
         # Bullet - ship settings.
         self.bullet_speed = 7
@@ -32,9 +32,9 @@ class Settings:
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.homing_bullets_per_burst = 5
-        self.homing_burst_num = 5  # How many times to repeat a pattern
+        self.homing_burst_num = 2  # How many times to repeat a pattern
         self.homing_bullet_cooldown = 300
-        self.homing_burst_cooldown = 500   # Cooldown between burst
+        self.homing_burst_cooldown = 1000   # Cooldown between burst
 
         # Tri-Pattern
         self.tri_burst_num = 3
