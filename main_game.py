@@ -160,7 +160,7 @@ class WhatIsThisAbomination:
     def _check_keyup_events(self, event):
         if event.key == pygame.K_LSHIFT:
             # Restore ship speed if LSHIFT is not pressed anymore
-            self.settings.ship_speed *= 1 / self.settings.slow_scale\
+            self.settings.ship_speed *= 1 / self.settings.slow_scale
 
     def _create_aliens(self):
         """Create row of aliens on the first row. In the future, might change"""
