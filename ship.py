@@ -21,9 +21,11 @@ class Ship(Sprite):
         self.ship_rect.midbottom = self.screen_rect.midbottom
         self.rect.centerx = self.ship_rect.centerx
         self.rect.top = self.ship_rect.top + 5
+        self.hit_box_surface = pygame.Surface(size=(4, 4))
+        self.hit_box = self.hit_box_surface.get_rect()
 
-        # Mask just in case.
-        self.mask = pygame.mask.from_surface(self.core.convert_alpha())
+        # Mask for the true tiny hitbox of 4px
+        self.mask = pygame.mask.from_surface(self.hit_box_surface)
 
         # Store decimal values for the ship positions
         self.x = float(self.ship_rect.x)
@@ -59,6 +61,7 @@ class Ship(Sprite):
         self.ship_rect.y = self.y
         self.rect.centerx = self.ship_rect.centerx
         self.rect.top = self.ship_rect.top + 5
+        self.hit_box.center = self.rect.center
 
     def _update_vertical(self, keys):
         if keys[pygame.K_w] and self.ship_rect.top >= self.screen_rect.top:
@@ -71,7 +74,10 @@ class Ship(Sprite):
         if self.god_mode:
             self._blink_ship()
         self.screen.blit(self.image, self.ship_rect)
+        self.screen.blit(self.hit_box_surface, self.hit_box)
         self.screen.blit(self.core, self.rect)
+        print(self.hit_box.width, self.hit_box.height)
+        #print(self.hit_box.center, self.rect.center)
 
     def _blink_ship(self):
         """To denote that the ship is invincible after respawning"""
@@ -105,4 +111,5 @@ class Ship(Sprite):
         self.rect.y = self.ship_rect.y + 5
         self.x = float(self.ship_rect.x)
         self.y = float(self.ship_rect.y)
+        self.hit_box.center = self.rect.center
 

@@ -118,7 +118,6 @@ class WhatIsThisAbomination:
     def _update_ships(self):
         self._check_ship_hit()
         self.ship.draw_ship()
-        print(self.ship.god_mode)
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
@@ -172,7 +171,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(max_alien_per_row - 4):
+        for i in range(max_alien_per_row - 14):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
@@ -212,6 +211,7 @@ class WhatIsThisAbomination:
             self._create_aliens()
             self.ship.respawn_ship()
             self.bullets.empty()
+            self.alien_bullets.empty()
 
     def _display_fps(self):
         """Show the program's FPS in the window handle.WILL DELETE LATER.

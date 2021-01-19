@@ -12,11 +12,14 @@ class BulletAlienUno(Sprite):
         self.screen = main_game.screen
         self.settings = main_game.settings
         self.image = main_game.al_bullet_one
-        self.mask = pygame.mask.from_surface(self.image.convert_alpha())
+        self.bullet_hitbox = pygame.Surface(size=(6, 6))  # True hitbox of bullet for some sick bullet dodging
+        self.bullet_rect = self.bullet_hitbox.get_rect()
+        self.mask = pygame.mask.from_surface(self.bullet_hitbox)
 
         # Start each bullet out of the alien. This is where the alien will shoot the pattern
         self.rect = self.image.get_rect()
         self.rect.midtop = shooter.rect.midbottom
+        self.bullet_rect.center = self.rect.center
 
         # Vector movement for the bullet
         self.vector = Vector2()
@@ -26,6 +29,7 @@ class BulletAlienUno(Sprite):
 
     def draw_bullet(self):
         """Draw the boolet"""
+        self.screen.blit(self.bullet_hitbox, self.bullet_rect)
         self.screen.blit(self.image, self.rect)
 
     def update(self):
@@ -35,6 +39,7 @@ class BulletAlienUno(Sprite):
         self.y += self.normalized_vector[1] * self.settings.ali_bullet_speed
         self.rect.x = self.x
         self.rect.y = self.y
+        self.bullet_rect.center = self.rect.center
 
 
 class BulletAlienDos(BulletAlienUno):
