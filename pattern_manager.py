@@ -4,7 +4,7 @@ from tri_pattern import TriPattern
 from collections import deque
 # TO-DO: Line up the event order, as in like the target will only activate movement's countdown
 # after finishing a pattern. The pattern manager should be responsible for choosing the patterns from now on.
-
+# Also, fix the tri-pattern bullet
 
 class PatternManager:
     """A class for maintaining the alien's choice of bullet patterns"""
