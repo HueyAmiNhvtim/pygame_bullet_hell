@@ -48,6 +48,7 @@ class BulletAlienDos(BulletAlienUno):
     def __init__(self, main_game, shooter):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_two
+        self.speed = self.speed * 1.5
 
 
 class BulletAlienTres(BulletAlienUno):
@@ -55,4 +56,6 @@ class BulletAlienTres(BulletAlienUno):
     def __init__(self, main_game, shooter):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_three
+        self.rect.center = shooter.rect.center
+        self.bullet_rect.center = self.rect.center
 

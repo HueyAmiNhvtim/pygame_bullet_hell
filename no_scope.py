@@ -1,9 +1,9 @@
 import pygame
-from bullet_alien import BulletAlienDos
+from bullet_alien import BulletAlienTres
 
 
-class TriPattern:
-    """A pattern class for shooting boolets in a straightline of 3"""
+class NoScope:
+    """FIRE BULLETS EVERYWHERE"""
     def __init__(self, main_game, shooter):
         self.main_game = main_game
         self.screen = main_game.screen
@@ -15,12 +15,13 @@ class TriPattern:
         self.shoot_disabled = False  # This is for boolet's delay
 
         # Imported from settings.py
-        self.burst_cooldown = self.settings.tri_burst_cooldown
-        self.bullet_cooldown = self.settings.tri_bullet_cooldown
-        self.bullets_per_burst = self.settings.tri_bullets_per_burst
+        self.burst_cooldown = self.settings.nope_burst_cooldown
+        self.bullet_cooldown = self.settings.nope_bullet_cooldown
+        self.bullets_per_burst = self.settings.nope_rings_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
-        self.angle = self.settings.angle_between_stream
+        self.bullets_per_ring = self.settings.nope_bullets_ring
+        self.angle = 360 / self.bullets_per_ring
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
@@ -48,9 +49,9 @@ class TriPattern:
 
     def shoot_boolet(self):
         """Shoot each triplet of bullets"""
-        angle = self.angle
-        for i in range(3):
-            bullet = BulletAlienDos(self.main_game, shooter=self.shooter)
+        angle = 0
+        for i in range(self.bullets_per_ring):
+            bullet = BulletAlienTres(self.main_game, shooter=self.shooter)
             bullet.vector[0] = 0
             bullet.vector[1] = 1
             bullet.normalized_vector = bullet.vector.normalize()

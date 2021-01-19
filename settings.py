@@ -41,6 +41,14 @@ class Settings:
         self.tri_bullet_cooldown = 500
         self.tri_burst_cooldown = 800
         self.angle_between_stream = 30  # Use this to rotate the vector for each stream
+
+        # 360 no scope. noscope shortened into nope...
+        self.nope_rings_per_burst = 3
+        self.nope_cooldown = 300  # yeah, this cooldown between pattern is never used for some reason
+        self.nope_bullet_cooldown = 500  # This becomes cooldown between rings. Might implement one between individual bullets later
+        self.nope_burst_cooldown = 2000
+        self.nope_bullets_ring = 10  # Number of bullets per ring.
+
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
