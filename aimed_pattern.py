@@ -2,7 +2,7 @@ import pygame
 from bullet_alien import BulletAlienUno
 
 
-class StraightPattern:
+class AimedPattern:
     """A pattern class for shooting boolets in a straightline"""
     def __init__(self, main_game, shooter):
         self.main_game = main_game
@@ -17,14 +17,12 @@ class StraightPattern:
         # Imported from settings.py
         self.burst_cooldown = self.settings.homing_burst_cooldown
         self.bullet_cooldown = self.settings.homing_bullet_cooldown
-        self.burst_num = self.settings.homing_burst_num
         self.bullets_per_burst = self.settings.homing_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
-        self.burst_left = self.burst_num
 
     def shoot_burst(self):
         """Shoot the boolet in burst of straight line. Do it like the alien_movement cooldown"""
@@ -45,9 +43,8 @@ class StraightPattern:
                 # If burst is finished reset burst and recorded last burst_time.
                 self.bullets_left = self.bullets_per_burst
                 self.last_burst_fired = pygame.time.get_ticks()
-                self.burst_left -= 1
                 self.burst_disabled = True
-        print(self.burst_left)
+        # print(self.burst_left)
 
     def shoot_boolet(self):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
@@ -77,11 +74,9 @@ class StraightPattern:
         # Imported from settings.py
         self.burst_cooldown = self.settings.homing_burst_cooldown
         self.bullet_cooldown = self.settings.homing_bullet_cooldown
-        self.burst_num = self.settings.homing_burst_num
         self.bullets_per_burst = self.settings.homing_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
-        self.burst_left = self.burst_num

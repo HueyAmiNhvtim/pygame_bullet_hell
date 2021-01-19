@@ -16,11 +16,13 @@ class BulletAlienUno(Sprite):
         self.bullet_rect = self.bullet_hitbox.get_rect()
         self.mask = pygame.mask.from_surface(self.bullet_hitbox)
 
-        # Start each bullet out of the alien. This is where the alien will shoot the pattern
+        # Start each bullet out of the alien. This is where the alien will shoot bullet.
         self.rect = self.image.get_rect()
         self.rect.midtop = shooter.rect.midbottom
         self.bullet_rect.center = self.rect.center
 
+        # speed
+        self.speed = self.settings.ali_bullet_speed
         # Vector movement for the bullet
         self.vector = Vector2()
         self.normalized_vector = Vector2()
@@ -34,9 +36,8 @@ class BulletAlienUno(Sprite):
 
     def update(self):
         """Generic bullet update in 2D"""
-        # print(self.rect.midtop)
-        self.x += self.normalized_vector[0] * self.settings.ali_bullet_speed
-        self.y += self.normalized_vector[1] * self.settings.ali_bullet_speed
+        self.x += self.normalized_vector[0] * self.speed
+        self.y += self.normalized_vector[1] * self.speed
         self.rect.x = self.x
         self.rect.y = self.y
         self.bullet_rect.center = self.rect.center

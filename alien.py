@@ -3,8 +3,6 @@ import numpy
 from pygame.sprite import Sprite
 from pygame import Vector2
 from pattern_manager import PatternManager
-from straight_pattern import StraightPattern
-from tri_pattern import TriPattern
 from collections import deque
 # TO-DO: Delay each sprite's action until time...
 # TO-DO: Maybe do sth like this:
@@ -49,16 +47,14 @@ class Alien(Sprite):
         # Flags
         self.movement_disabled = False
         self.shoot = True  # Disable shooting after exhausting the current pattern's burst
-
-        # Placeholder pattern
-        self.first_pattern = StraightPattern(main_game, self)
-        self.second_pattern = TriPattern(main_game, self)
+        self.confirmed_switch = True  # Confirming that a switch has taken place
 
         # Initiating pattern manager
         self.pattern_manager = PatternManager(main_game, self)
 
     def update(self):
         """This is where the alien will move. Will need to fix if reached destination"""
+        self.pattern_manager.use_pattern()
         self._check_if_passed_destination()
         if self.movement_disabled is False:
             self.x += self.normalized_vector[0] * self.settings.alien_speed
@@ -66,8 +62,6 @@ class Alien(Sprite):
             self.rect.x = self.x
             self.rect.y = self.y
             self.last_time = pygame.time.get_ticks()
-        self.first_pattern.shoot_burst()
-        #self.pattern_manager.use_pattern()
 
     def create_destination_and_vector(self):
         """Upon creation of alien and when alien reaches a destination, create a new one"""
@@ -82,12 +76,16 @@ class Alien(Sprite):
         # Use Vector to calculate the distance between the alien and the destination
         dist_between_ob_dis = Vector2(self.destination[0] - self.rect.x, self.destination[1] - self.rect.y).magnitude()
         # Alien_speed will act as a proximity surrounding the destination.
-        if dist_between_ob_dis <= self.settings.alien_speed:
+        if dist_between_ob_dis <= self.settings.alien_speed and self.confirmed_switch:
             self.movement_disabled = True
-            if time_now - self.last_time >= self.movement_cooldown:
-                # Check for movement cooldown
-                self.create_destination_and_vector()
-                self.movement_disabled = False
+            # Make sure that the manager does not constantly switch pattern while object is in movement cooldown
+            self.confirmed_switch = False
+            self.pattern_manager.switch_pattern()
+        if time_now - self.last_time >= self.movement_cooldown:
+            self.create_destination_and_vector()
+            self.pattern_manager.switch_pattern()
+            self.movement_disabled = False
+            self.confirmed_switch = True  # Reactivate the flag so that the alien can switch pattern again.
 
     def health_tooltip(self):
         """Display health on top of the alien."""

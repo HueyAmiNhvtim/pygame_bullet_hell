@@ -1,4 +1,4 @@
-# TO-DO:
+# ALL COOLDOWNS ARE MEASURED IN MILLISECONDS UNLESS EXPLICITLY TOLD OTHERWISE!
 
 
 class Settings:
@@ -32,16 +32,14 @@ class Settings:
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.homing_bullets_per_burst = 5
-        self.homing_burst_num = 2  # How many times to repeat a pattern
-        self.homing_bullet_cooldown = 300
-        self.homing_burst_cooldown = 1000   # Cooldown between burst
+        self.homing_bullet_cooldown = 100
+        self.homing_burst_cooldown = 400   # Cooldown between burst
 
         # Tri-Pattern
-        self.tri_burst_num = 3
         self.tri_bullets_per_burst = 4
         self.tri_cooldown = 300
-        self.tri_bullet_cooldown = 300
-        self.tri_burst_cooldown = 400
+        self.tri_bullet_cooldown = 500
+        self.tri_burst_cooldown = 800
         self.angle_between_stream = 30  # Use this to rotate the vector for each stream
         self.initialize_dynamic_settings()
 

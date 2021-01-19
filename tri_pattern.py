@@ -17,14 +17,13 @@ class TriPattern:
         # Imported from settings.py
         self.burst_cooldown = self.settings.tri_burst_cooldown
         self.bullet_cooldown = self.settings.tri_bullet_cooldown
-        self.burst_num = self.settings.tri_burst_num
         self.bullets_per_burst = self.settings.tri_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
         self.angle = self.settings.angle_between_stream
+
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
-        self.burst_left = self.burst_num
 
     def shoot_burst(self):
         """Shoot the boolet in burst of straight line. Do it like the alien_movement cooldown"""
@@ -45,7 +44,6 @@ class TriPattern:
                 # If burst is finished reset burst and recorded last burst_time.
                 self.bullets_left = self.bullets_per_burst
                 self.last_burst_fired = pygame.time.get_ticks()
-                self.burst_left -= 1
                 self.burst_disabled = True
 
     def shoot_boolet(self):
@@ -56,7 +54,7 @@ class TriPattern:
             bullet.vector[0] = 0
             bullet.vector[1] = 1
             bullet.normalized_vector = bullet.vector.normalize()
-            bullet.normalized_vector.rotate(angle)
+            bullet.normalized_vector = bullet.normalized_vector.rotate(angle)
             angle -= self.angle
             self.main_game.alien_bullets.add(bullet)
 
@@ -80,12 +78,9 @@ class TriPattern:
         # Imported from settings.py
         self.burst_cooldown = self.settings.tri_burst_cooldown
         self.bullet_cooldown = self.settings.tri_bullet_cooldown
-        self.burst_num = self.settings.tri_burst_num
         self.bullets_per_burst = self.settings.tri_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
-        self.angle = self.settings.angle_between_stream
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
-        self.burst_left = self.burst_num
