@@ -1,9 +1,9 @@
 import pygame
-from bullet_alien import BulletAlienUno
+from bullet_alien import BulletAlienDos
 
 
-class StraightPattern:
-    """A pattern class for shooting boolets in a straightline"""
+class TriPattern:
+    """A pattern class for shooting boolets in a straightline of 3"""
     def __init__(self, main_game, shooter):
         self.main_game = main_game
         self.screen = main_game.screen
@@ -15,12 +15,13 @@ class StraightPattern:
         self.shoot_disabled = False  # This is for boolet's delay
 
         # Imported from settings.py
-        self.burst_cooldown = self.settings.homing_burst_cooldown
-        self.bullet_cooldown = self.settings.homing_bullet_cooldown
-        self.burst_num = self.settings.homing_burst_num
-        self.bullets_per_burst = self.settings.homing_bullets_per_burst
+        self.burst_cooldown = self.settings.tri_burst_cooldown
+        self.bullet_cooldown = self.settings.tri_bullet_cooldown
+        self.burst_num = self.settings.tri_burst_num
+        self.bullets_per_burst = self.settings.tri_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
+        self.angle = self.settings.angle_between_stream
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst
@@ -49,12 +50,16 @@ class StraightPattern:
                 self.burst_disabled = True
 
     def shoot_boolet(self):
-        """Shoot each boolet. Do it like the alien_movement cooldown"""
-        bullet = BulletAlienUno(self.main_game, shooter=self.shooter)
-        bullet.vector[0] = self.main_game.ship.x - bullet.rect.x
-        bullet.vector[1] = self.main_game.ship.y - bullet.rect.y  # Set the vector to aim at the ship's position
-        bullet.normalized_vector = bullet.vector.normalize()
-        self.main_game.alien_bullets.add(bullet)
+        """Shoot each triplet of bullets"""
+        angle = self.angle
+        for i in range(3):
+            bullet = BulletAlienDos(self.main_game, shooter=self.shooter)
+            bullet.vector[0] = 0
+            bullet.vector[1] = 1
+            bullet.normalized_vector = bullet.vector.normalize()
+            bullet.normalized_vector.rotate(angle)
+            angle -= angle
+            self.main_game.alien_bullets.add(bullet)
 
     def _check_burst_cooldown(self):
         time_now = pygame.time.get_ticks()
@@ -74,12 +79,13 @@ class StraightPattern:
         self.shoot_disabled = False  # This is for boolet's delay
 
         # Imported from settings.py
-        self.burst_cooldown = self.settings.homing_burst_cooldown
-        self.bullet_cooldown = self.settings.homing_bullet_cooldown
-        self.burst_num = self.settings.homing_burst_num
-        self.bullets_per_burst = self.settings.homing_bullets_per_burst
+        self.burst_cooldown = self.settings.tri_burst_cooldown
+        self.bullet_cooldown = self.settings.tri_bullet_cooldown
+        self.burst_num = self.settings.tri_burst_num
+        self.bullets_per_burst = self.settings.tri_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
+        self.angle = self.settings.angle_between_stream
 
         # Dynamic bullet_count and burst_count
         self.bullets_left = self.bullets_per_burst

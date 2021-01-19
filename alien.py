@@ -3,6 +3,8 @@ import numpy
 from pygame.sprite import Sprite
 from pygame import Vector2
 from straight_pattern import StraightPattern
+from tri_pattern import TriPattern
+from collections import deque
 # TO-DO: Delay each sprite's action until time...
 # TO-DO: Maybe do sth like this:
 # Set a random point within the boundary of the screen.
@@ -48,6 +50,7 @@ class Alien(Sprite):
 
         # Placeholder pattern
         self.first_pattern = StraightPattern(main_game, self)
+        self.second_pattern = TriPattern(main_game, self)
 
     def update(self):
         """This is where the alien will move. Will need to fix if reached destination"""

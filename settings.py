@@ -25,13 +25,24 @@ class Settings:
         self.bullet_color = (0, 255, 0)
         self.boolet_limit = 4
 
-        # Bullet - alien settings
+        # Pattern settings
         self.ali_bullet_speed = 1
-        self.ali_burst_straight = 5   # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
-        self.burst_num = 5  # How many times to repeat a pattern
-        self.ali_bullet_cooldown = 300
-        self.burst_cooldown = 5
+        self.pattern_cooldown = 5000  # Cool down between patterns
 
+        # Bullet - alien settings
+        # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
+        self.homing_bullets_per_burst = 5
+        self.homing_burst_num = 5  # How many times to repeat a pattern
+        self.homing_bullet_cooldown = 300
+        self.homing_burst_cooldown = 500   # Cooldown between burst
+
+        # Tri-Pattern
+        self.tri_burst_num = 3
+        self.tri_bullets_per_burst = 4
+        self.tri_cooldown = 300
+        self.tri_bullet_cooldown = 300
+        self.tri_burst_cooldown = 400
+        self.angle_between_stream = 30  # Use this to rotate the vector for each stream
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
