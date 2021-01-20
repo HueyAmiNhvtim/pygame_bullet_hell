@@ -1,4 +1,5 @@
 # ALL COOLDOWNS ARE MEASURED IN MILLISECONDS UNLESS EXPLICITLY TOLD OTHERWISE!
+# Maybe put the event queue there so every 2 levels add a new pattern to the aliens
 
 
 class Settings:
@@ -50,10 +51,11 @@ class Settings:
         self.nope_bullets_ring = 10  # Number of bullets per ring.
 
         # homing_bullets
-        self.homing_bullets_per_burst = 5
+        self.homing_bullets_per_burst = 1
         self.homing_bullet_cooldown = 100
-        self.homing_burst_cooldown = 400  # Cooldown between burst
-        self.homing_update_tick = 100  # Rate to update bullet's vector
+        self.homing_burst_cooldown = 800  # Cooldown between burst
+        self.homing_update_tick = 200  # Rate to update bullet's vector
+        self.homing_time = 1400  # Total time bullets allowed to homing
 
         self.initialize_dynamic_settings()
 

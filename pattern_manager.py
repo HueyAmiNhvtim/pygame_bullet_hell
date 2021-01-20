@@ -17,7 +17,7 @@ class PatternManager:
         self.second_pattern = TriPattern(main_game, self.shooter)
         self.third_pattern = NoScope(main_game, self.shooter)
         self.fourth_pattern = HomingPattern(main_game, self.shooter)
-        self.event_deque = deque([self.fourth_pattern, self.second_pattern, self.first_pattern, self.third_pattern])
+        self.event_deque = deque([self.fourth_pattern])
 
     def use_pattern(self):
         self.event_deque[0].shoot_burst()

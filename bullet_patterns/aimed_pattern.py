@@ -29,7 +29,7 @@ class AimedPattern:
         self._check_burst_cooldown()
         """yeah, I have to check if any bursts left to move onto next pattern"""
         if not self.burst_disabled:
-            """check if any bullets left. Otherwise, reduce burst count and then do a new burst"""
+            """check if any bullets left. Otherwise, use burst cooldown and then do a new burst"""
             if self.bullets_left != 0:
                 # Check to see whether the burst is finished
                 self._check_bullet_cooldown()
