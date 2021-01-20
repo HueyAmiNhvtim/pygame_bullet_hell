@@ -56,10 +56,10 @@ class Settings:
         self.nope_bullets_ring = 10  # Number of bullets per ring.
 
         # homing_bullets
-        self.homing_bullets_per_burst = 1
+        self.homing_bullets_per_burst = 2
         self.homing_bullet_cooldown = 100
-        self.homing_burst_cooldown = 800  # Cooldown between burst
-        self.homing_update_tick = 200  # Rate to update bullet's vector
+        self.homing_burst_cooldown = 1000  # Cooldown between burst
+        self.homing_update_tick = 150  # Rate to update bullet's vector
         self.homing_time = 1400  # Total time bullets allowed to homing
 
         # Cooldown
