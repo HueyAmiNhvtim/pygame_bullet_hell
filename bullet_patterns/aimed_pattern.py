@@ -15,9 +15,9 @@ class AimedPattern:
         self.shoot_disabled = False  # This is for boolet's delay
 
         # Imported from settings.py
-        self.burst_cooldown = self.settings.homing_burst_cooldown
-        self.bullet_cooldown = self.settings.homing_bullet_cooldown
-        self.bullets_per_burst = self.settings.homing_bullets_per_burst
+        self.burst_cooldown = self.settings.aiming_burst_cooldown
+        self.bullet_cooldown = self.settings.aiming_bullet_cooldown
+        self.bullets_per_burst = self.settings.aiming_bullets_per_burst
         self.last_burst_fired = pygame.time.get_ticks()
         self.last_bullet_fired = pygame.time.get_ticks()
 

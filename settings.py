@@ -31,9 +31,9 @@ class Settings:
 
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
-        self.homing_bullets_per_burst = 5
-        self.homing_bullet_cooldown = 100
-        self.homing_burst_cooldown = 400   # Cooldown between burst
+        self.aiming_bullets_per_burst = 5
+        self.aiming_bullet_cooldown = 100
+        self.aiming_burst_cooldown = 400   # Cooldown between burst
 
         # Tri-Pattern
         self.tri_bullets_per_burst = 4
@@ -48,6 +48,12 @@ class Settings:
         self.nope_bullet_cooldown = 500  # This becomes cooldown between rings. Might implement one between individual bullets later
         self.nope_burst_cooldown = 2000
         self.nope_bullets_ring = 10  # Number of bullets per ring.
+
+        # homing_bullets
+        self.homing_bullets_per_burst = 5
+        self.homing_bullet_cooldown = 100
+        self.homing_burst_cooldown = 400  # Cooldown between burst
+        self.homing_update_tick = 100  # Rate to update bullet's vector
 
         self.initialize_dynamic_settings()
 

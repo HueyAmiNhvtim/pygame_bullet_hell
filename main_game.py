@@ -54,6 +54,7 @@ class WhatIsThisAbomination:
         self.al_bullet_one = pygame.image.load("images/bullet_al.bmp")
         self.al_bullet_two = pygame.image.load("images/bullet_al_2.bmp")
         self.al_bullet_three = pygame.image.load("images/bullet_al_3.bmp")
+        self.al_bullet_four = pygame.image.load("images/bullet_al_4.bmp")
 
     def run_game(self):
         """Running the main loop of the game"""

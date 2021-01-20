@@ -76,9 +76,9 @@ class Alien(Sprite):
         # Use Vector to calculate the distance between the alien and the destination
         dist_between_ob_dis = Vector2(self.destination[0] - self.rect.x, self.destination[1] - self.rect.y).magnitude()
         # Alien_speed will act as a proximity surrounding the destination.
-        if dist_between_ob_dis <= self.settings.alien_speed and self.confirmed_switch:
+        if self.confirmed_switch and dist_between_ob_dis <= self.settings.alien_speed:
             self.movement_disabled = True
-            # Make sure that the manager does not constantly switch pattern while object is in movement cooldown
+            # Make sure that the manager does not constantly switch pattern while object stops
             self.confirmed_switch = False
             self.pattern_manager.switch_pattern()
         if time_now - self.last_time >= self.movement_cooldown:

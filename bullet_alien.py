@@ -1,6 +1,10 @@
 import pygame
 from pygame.sprite import Sprite
 from pygame import Vector2
+# TO-DO: Rotate sprite, too in bulletAlienQuattro. Use prev vector with new vector and then
+#        use pygame.transform.rotate(image, angle) to rotate it. Also update the surface mask, too.
+#        Have the limited tracking time
+#        Fix update_vector
 
 
 class BulletAlienUno(Sprite):
@@ -59,3 +63,43 @@ class BulletAlienTres(BulletAlienUno):
         self.rect.center = shooter.rect.center
         self.bullet_rect.center = self.rect.center
 
+
+class BulletAlienQuattro(BulletAlienUno):
+    """Inherit a bit, but this time, it's gonna be homing bullets"""
+    def __init__(self, main_game, shooter):
+        super().__init__(main_game, shooter)
+        self.image = main_game.al_bullet_four
+
+        self.bullet_hitbox = pygame.Surface(size=(4, 4))  # True hitbox of bullet for some sick bullet dodging
+        self.bullet_rect = self.bullet_hitbox.get_rect()
+        self.mask = pygame.mask.from_surface(self.bullet_hitbox)
+        self.main_game = main_game  # Hopefully this won't slow down the game
+        # Homing purpose
+        self.update_cooldown = main_game.settings.homing_update_tick
+        self.core_x = 0  # Coordinate of core for homing purpose
+        self.core_y = 0
+
+        self.last_time = pygame.time.get_ticks()
+        # Flag
+        self.updatable = False
+
+    def update(self):
+        """Check for update tick in order to head for the ship"""
+        self._check_for_vector_update()
+        self.x += self.normalized_vector[0] * self.speed
+        self.y += self.normalized_vector[1] * self.speed
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.bullet_rect.center = self.rect.center
+
+    def _check_for_vector_update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_time >= self.update_cooldown and self.updatable:
+            self._change_vector()
+            self.updatable = False
+            self.last_time = pygame.time.get_ticks()
+
+    def _change_vector(self):
+        self.vector[0] = self.main_game.ship.rect.x - self.rect.x
+        self.vector[1] = self.main_game.ship.rect.y - self.rect.y  # Set the vector to aim at the ship's position
+        self.normalized_vector = self.vector.normalize()
