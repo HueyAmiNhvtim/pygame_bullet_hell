@@ -1,5 +1,4 @@
 import pygame
-import numpy
 from pygame.sprite import Sprite
 from pygame import Vector2
 # TO-DO: Rotate sprite, too in bulletAlienQuattro. Use prev vector with new vector and then calculate the angle
@@ -65,12 +64,12 @@ class BulletAlienTres(BulletAlienUno):
         self.bullet_rect.center = self.rect.center
 
 
-class BulletAlienQuattro(BulletAlienUno):
+class BulletAlienCuatro(BulletAlienUno):
     """Inherit a bit, but this time, it's gonna be homing bullets"""
     def __init__(self, main_game, shooter):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_four
-        self.speed = self.speed * 5
+        self.speed = self.speed * 3
         self.bullet_hitbox = pygame.Surface(size=(4, 4))  # True hitbox of bullet for some sick bullet dodging
         self.bullet_rect = self.bullet_hitbox.get_rect()
         self.mask = pygame.mask.from_surface(self.bullet_hitbox)
@@ -79,8 +78,7 @@ class BulletAlienQuattro(BulletAlienUno):
         # Homing purpose
         self.update_cooldown = main_game.settings.homing_update_tick  # I don't know if that's the right word to use
         self.homing_time = main_game.settings.homing_time
-        self.core_x = 0  # Coordinate of core for homing purpose
-        self.core_y = 0
+        # self.angle = 0
 
         self.new_vector = Vector2()
         self.last_time = pygame.time.get_ticks()
@@ -114,8 +112,20 @@ class BulletAlienQuattro(BulletAlienUno):
     def _change_vector(self):
         self.new_vector[0] = self.main_game.ship.rect.x - self.rect.x
         self.new_vector[1] = self.main_game.ship.rect.y - self.rect.y  # Set the vector to aim at the ship's position
+        # old_vector = Vector2(self.vector[0], self.vector[1])
         if self.new_vector.length() != 0 and not self.main_game.ship.god_mode:
             self.normalized_vector = self.new_vector.normalize()
+            # self.angle = old_vector.angle_to(self.new_vector)
+            # print(int(self.angle))
             self.vector[0], self.vector[1] = self.new_vector[0], self.new_vector[1]
             self.last_time = pygame.time.get_ticks()  # Record the last time bullet change vectors.
 
+
+class BulletAlienCinco(BulletAlienUno):
+    """Exactly same class, just with different image"""
+    def __init__(self, main_game, shooter):
+        super().__init__(main_game, shooter)
+        self.image = main_game.al_bullet_five
+        self.rect.center = shooter.rect.center
+        self.bullet_rect.center = self.rect.center
+        self.speed *= 1 / 2

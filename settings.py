@@ -15,6 +15,10 @@ class Settings:
         self.slow_scale = 1 / 4
         self.god_time = 3000
         self.circle_color = (105, 105, 105)
+        self.bomb_limit = 3
+        self.bomb_update_tick = 200
+        self.bomb_time = 2000
+        self.expand_rate = 2
 
         # Alien settings:
         self.movement_cooldown = 5000
@@ -28,7 +32,8 @@ class Settings:
 
         # Pattern settings
         self.ali_bullet_speed = 1
-        self.pattern_cooldown = 5000  # Cool down between patterns
+        # self.pattern_cooldown = 5000  # Cool down between patterns
+        # self.event_deque = deque([self.first_pattern, self.second_pattern, self.first_pattern, self.third_pattern, self.first_pattern,self.fourth_pattern])
 
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
@@ -57,6 +62,9 @@ class Settings:
         self.homing_update_tick = 200  # Rate to update bullet's vector
         self.homing_time = 1400  # Total time bullets allowed to homing
 
+        # Cooldown
+        self.cyclone_bullet_cooldown = 25
+        self.cyclone_time = 3000
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):

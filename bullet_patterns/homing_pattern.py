@@ -1,5 +1,5 @@
 import pygame
-from bullet_alien import BulletAlienQuattro
+from bullet_alien import BulletAlienCuatro
 
 
 class HomingPattern:
@@ -48,7 +48,7 @@ class HomingPattern:
 
     def shoot_boolet(self):
         """Shoot each boolet. Do it like the alien_movement cooldown"""
-        bullet = BulletAlienQuattro(self.main_game, shooter=self.shooter)
+        bullet = BulletAlienCuatro(self.main_game, shooter=self.shooter)
         bullet.vector[0] = self.main_game.ship.rect.x - bullet.rect.x
         bullet.vector[1] = self.main_game.ship.rect.y - bullet.rect.y  # Set the vector to aim at the ship's position
         bullet.normalized_vector = bullet.vector.normalize()

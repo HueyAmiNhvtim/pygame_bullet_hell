@@ -1,7 +1,9 @@
+import pygame
 from bullet_patterns.aimed_pattern import AimedPattern
 from bullet_patterns.tri_pattern import TriPattern
 from bullet_patterns.no_scope import NoScope
 from bullet_patterns.homing_pattern import HomingPattern
+from bullet_patterns.cyclone import Cyclone
 from collections import deque
 # TO-DO: Line up the event order, as in like the target will only activate movement's countdown
 # after finishing a pattern. The pattern manager should be responsible for choosing the patterns from now on.
@@ -17,7 +19,8 @@ class PatternManager:
         self.second_pattern = TriPattern(main_game, self.shooter)
         self.third_pattern = NoScope(main_game, self.shooter)
         self.fourth_pattern = HomingPattern(main_game, self.shooter)
-        self.event_deque = deque([self.fourth_pattern])
+        self.fifth_pattern = Cyclone(main_game, self.shooter)
+        self.event_deque = deque([self.first_pattern, self.fifth_pattern])
 
     def use_pattern(self):
         self.event_deque[0].shoot_burst()
