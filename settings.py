@@ -81,7 +81,7 @@ class Settings:
     def increase_level(self):
         if self.pattern_cooldown >= 100:
             self.pattern_cooldown -= 40
-        self.aliens_on_screen += 0.5
+        self.aliens_on_screen += 0.75
         self.alien_health += 0.25
         if self.pattern_choice < 5:
             self.pattern_choice += 0.25
