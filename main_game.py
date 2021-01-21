@@ -308,13 +308,6 @@ class WhatIsThisAbomination:
         self.ship.god_mode = False
         self.ship.image.set_alpha(255)
 
-    def _display_fps(self):
-        """Show the program's FPS in the window handle.WILL DELETE LATER.
-        THANKS MEKIRE!"""
-        caption = f"{self.caption} - FPS: {clock.get_fps():.2f}"
-        pygame.display.set_caption(caption)
-
-
 if __name__ == "__main__":
     game = WhatIsThisAbomination()
     game.run_game()
