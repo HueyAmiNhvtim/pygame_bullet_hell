@@ -17,13 +17,13 @@ class BulletAlienUno(Sprite):
         self.settings = main_game.settings
         self.image = main_game.al_bullet_one
         self.bullet_hitbox = pygame.Surface(size=(6, 6))  # True hitbox of bullet for some sick bullet dodging
-        self.bullet_rect = self.bullet_hitbox.get_rect()
-        self.mask = pygame.mask.from_surface(self.bullet_hitbox)
+        self.actual_rect = self.bullet_hitbox.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
 
         # Start each bullet out of the alien. This is where the alien will shoot bullet.
         self.rect = self.image.get_rect()
         self.rect.midtop = shooter.rect.midbottom
-        self.bullet_rect.center = self.rect.center
+        self.actual_rect.center = self.rect.center
         self.angle = 0
         # speed
         self.speed = self.settings.ali_bullet_speed
@@ -35,8 +35,8 @@ class BulletAlienUno(Sprite):
 
     def draw_bullet(self):
         """Draw the boolet"""
-        self.screen.blit(self.bullet_hitbox, self.bullet_rect)
         self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.bullet_hitbox, self.actual_rect)
 
     def update(self):
         """Generic bullet update in 2D"""
@@ -44,7 +44,7 @@ class BulletAlienUno(Sprite):
         self.y += self.normalized_vector[1] * self.speed
         self.rect.x = self.x
         self.rect.y = self.y
-        self.bullet_rect.center = self.rect.center
+        self.actual_rect.center = self.rect.center
 
 
 class BulletAlienDos(BulletAlienUno):
@@ -61,7 +61,7 @@ class BulletAlienTres(BulletAlienUno):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_three
         self.rect.center = shooter.rect.center
-        self.bullet_rect.center = self.rect.center
+        self.actual_rect.center = self.rect.center
 
 
 class BulletAlienCuatro(BulletAlienUno):
@@ -127,5 +127,5 @@ class BulletAlienCinco(BulletAlienUno):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_five
         self.rect.center = shooter.rect.center
-        self.bullet_rect.center = self.rect.center
+        self.actual_rect.center = self.rect.center
         self.speed *= 1 / 2

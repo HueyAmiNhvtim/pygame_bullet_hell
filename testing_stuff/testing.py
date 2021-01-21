@@ -1,5 +1,5 @@
 from collections import deque
 
-
-wat = deque([1, 5, 7, 5, 12])
-print(wat[1])
+rounded = 12134325
+score_formatted = f"{rounded:,}"
+print(score_formatted)

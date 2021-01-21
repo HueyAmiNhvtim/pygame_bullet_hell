@@ -15,6 +15,7 @@ class Settings:
         self.slow_scale = 1 / 4
         self.god_time = 3000
         self.ships_health = 1
+        self.graze_increment = 5
 
         # Alien settings:
         self.movement_cooldown = 5000
@@ -35,6 +36,7 @@ class Settings:
         # Alien settings
         self.alien_speed = 3
         self.alien_health = 3
+        self.alien_points = 100
 
         # Pattern settings
         self.ali_bullet_speed = 1

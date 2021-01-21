@@ -26,7 +26,7 @@ class Ship(Sprite):
         self.hit_box = self.hit_box_surface.get_rect()
 
         # Mask for the true tiny hitbox of 4px
-        self.mask = pygame.mask.from_surface(self.hit_box_surface)
+        self.mask = pygame.mask.from_surface(self.core)
 
         # Store decimal values for the ship positions
         self.x = float(self.ship_rect.x)

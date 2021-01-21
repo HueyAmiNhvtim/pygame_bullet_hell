@@ -9,6 +9,7 @@ from bullet_ship import Bullet
 from alien import Alien
 from stats import Stats
 from button import Button
+from scoreboard import Scoreboard
 
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
@@ -35,6 +36,8 @@ class WhatIsThisAbomination:
         self.screen_rect = self.screen.get_rect()
         self.ship = Ship(self)
         self.stats = Stats(self)
+        self.scoreboard = Scoreboard(self)
+        self.scoreboard.load_high_score()
 
         # Groups.
         self.bullets = Group()
@@ -80,6 +83,7 @@ class WhatIsThisAbomination:
         """Check for key presses for menu navigation."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.scoreboard.save_high_score()
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
@@ -99,6 +103,7 @@ class WhatIsThisAbomination:
             self.play_button.draw_button()
             self.escape_button.draw_button()
         self.aliens.draw(self.screen)
+        self.scoreboard.display_info()
         self._draw_alien_bullets()
         pygame.display.flip()
 
@@ -158,19 +163,37 @@ class WhatIsThisAbomination:
         # Create mask after rect detection to save run time.... Mask is expensive time-wise...
         offset_x, offset_y = (object_hit.rect.left - self.ship.rect.left, object_hit.rect.top - self.ship.rect.top)
         actual_overlap = self.ship.mask.overlap(object_hit.mask, (offset_x, offset_y))
-        if actual_overlap:
-            # Respawn ship and then set a marker to act for invincible cooldown period.
-            # print("Collision detected!")
-            self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
-            self.ship.start_respawn_time = pygame.time.get_ticks()
-            self.stats.ships_left -= 1
-            self.ship.god_mode = True
-
+        collision = self.ship.hit_box.colliderect(object_hit.actual_rect)
+        if object_hit not in self.aliens:
+            if actual_overlap and not self.ship.god_mode:
+                # Reward player for playing aggressively
+                self.stats.score += self.settings.graze_increment
+                self.scoreboard.update_score()
+                self.scoreboard.check_high_score()
+            if collision:
+                self._ship_dead_consequence()
+        else:
+            if collision and not self.ship.god_mode:
+                self.stats.score += self.settings.graze_increment
+                self.scoreboard.update_score()
+                self.scoreboard.check_high_score()
+            if actual_overlap:
+                self._ship_dead_consequence()
         self._check_ship_conditions()
+
+    def _ship_dead_consequence(self):
+        # Respawn ship and then set a marker to act for invincible cooldown period.
+        # print("Collision detected!")
+        self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
+        self.ship.start_respawn_time = pygame.time.get_ticks()
+        self.stats.ships_left -= 1
+        self.scoreboard.ships.remove(list(self.scoreboard.ships)[-1])
+        self.ship.god_mode = True
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
         if event.key == pygame.K_ESCAPE:
+            self.scoreboard.save_high_score()
             pygame.quit()
             sys.exit()
         elif event.key == pygame.K_RETURN:
@@ -197,7 +220,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(max_alien_per_row):
+        for i in range(1):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
@@ -224,6 +247,9 @@ class WhatIsThisAbomination:
                 alien.health -= 1
                 if alien.health == 0:
                     self.aliens.remove(alien)
+                    self.stats.score += self.settings.alien_points
+                    self.scoreboard.update_score()
+                    self.scoreboard.check_high_score()
         self._end_alien_lost()
 
     def _end_alien_lost(self):
@@ -235,7 +261,10 @@ class WhatIsThisAbomination:
             self.ship.respawn_ship()
             self.bullets.empty()
             self.bombs.empty()
+            self.stats.ships_left = self.settings.ships_health
             self.stats.level += 1
+            self.scoreboard.update_level()
+            self.scoreboard.update_ships()
             self.alien_bullets.empty()
 
     def _check_ship_conditions(self):
@@ -243,7 +272,17 @@ class WhatIsThisAbomination:
         if self.stats.ships_left == 0:
             self.stats.game_active = False
             self.stats.reset_stats()
+            self.scoreboard.update_ships()
+            self.scoreboard.update_score()
+            self.scoreboard.update_level()
             self.settings.initialize_dynamic_settings()
+
+            # Change play button slightly
+            self.play_button.message = "Play again?"
+            self.play_button.update_msg()
+            self.play_button.insert_msg()
+
+            self.scoreboard.display_info()
             pygame.mouse.set_visible(True)
 
     def _check_play_button(self):
