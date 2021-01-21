@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Group
 import sys
+import math
 
 # Maybe increase number of boolets to shoot per level. In the far future...
 from settings import Settings
@@ -114,7 +115,7 @@ class WhatIsThisAbomination:
         self._update_alien_bullets()
 
     def _fire_bullet(self):
-        if len(self.bullets) < int(round(self.settings.boolet_limit)):
+        if len(self.bullets) < math.floor(self.settings.boolet_limit):
             bullet = Bullet(self)
             self.bullets.add(bullet)
 

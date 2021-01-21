@@ -89,4 +89,4 @@ class Settings:
             self.pattern_tier += 0.5
         self.alien_points += 5
         self.alien_speed += 0.2
-        self.boolet_limit += 0.3
+        self.boolet_limit += 0.2
