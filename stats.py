@@ -3,7 +3,7 @@ class Stats:
     def __init__(self, main_game):
         self.settings = main_game.settings
 
-        self.game_active = True  # Flag for the Play button...
+        self.game_active = False  # Flag for the Play button...
 
         # General ship_stats:
         self.ships_left = self.settings.ships_health

@@ -8,6 +8,7 @@ from ship import Ship
 from bullet_ship import Bullet
 from alien import Alien
 from stats import Stats
+from button import Button
 
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
@@ -48,12 +49,14 @@ class WhatIsThisAbomination:
         # Create aliens
         self._create_aliens()
 
-        # Testing
-        self.caption = "Wat"
+        # Caption and play button
+        self.caption = "My 'game'"
         pygame.display.set_caption(self.caption)
+        self.play_button = Button(self, "Play", 0)
+        self.escape_button = Button(self, "Esc?", 1)
 
         # Load resources. I can't justify myself putting in the SpriteSheet code from
-        # the Net and given my time constraint, I have to do this ugly.
+        # the Net and given my time constraint, I have to do this ugly. Extremely ugly
         self.ship_bullet = pygame.image.load("images/bullet_ship.bmp")
         # self.bomb_ship = pygame.image.load("images/bomb_effect.bmp")  I don't have enough time to learn how to rotate and expand image from center
         self.al_bullet_one = pygame.image.load("images/bullet_al.bmp")
@@ -70,7 +73,7 @@ class WhatIsThisAbomination:
             if self.stats.game_active:
                 self.ship.update()
                 self._update_objects()
-            self._draw_screen()
+            self._update_screen()
             clock.tick(self.settings.FPS)
 
     def _check_events(self):
@@ -84,7 +87,7 @@ class WhatIsThisAbomination:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-    def _draw_screen(self):
+    def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self._draw_bullets()
         self.ship.draw_ship()
@@ -92,6 +95,9 @@ class WhatIsThisAbomination:
             for alien in self.aliens:
                 alien.update_health()
                 alien.draw_bar_health()
+        else:
+            self.play_button.draw_button()
+            self.escape_button.draw_button()
         self.aliens.draw(self.screen)
         self._draw_alien_bullets()
         pygame.display.flip()
@@ -172,6 +178,9 @@ class WhatIsThisAbomination:
         elif event.key == pygame.K_LSHIFT:
             # Slow down ship by a constant rate if LSHIFT is pressed
             self.settings.ship_speed *= self.settings.slow_scale
+        elif event.key == pygame.K_p:
+            self.stats.game_active = True
+            self._check_play_button()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_LSHIFT:
@@ -236,6 +245,29 @@ class WhatIsThisAbomination:
             self.stats.reset_stats()
             self.settings.initialize_dynamic_settings()
             pygame.mouse.set_visible(True)
+
+    def _check_play_button(self):
+        """Start a new game"""
+        # Reset game statistics
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        # Hide mouse buttons
+        pygame.mouse.set_visible(False)
+
+        # Get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+        self.alien_bullets.empty()
+
+        # Create a new fleet and center ship
+        self._create_aliens()
+        self.ship.respawn_ship()
+
+        # Reset the game settings
+        self.settings.initialize_dynamic_settings()
+        self.ship.god_mode = False
+        self.ship.image.set_alpha(255)
 
     def _display_fps(self):
         """Show the program's FPS in the window handle.WILL DELETE LATER.

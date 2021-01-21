@@ -77,8 +77,6 @@ class Ship(Sprite):
         self.screen.blit(self.image, self.ship_rect)
         self.screen.blit(self.hit_box_surface, self.hit_box)
         self.screen.blit(self.core, self.rect)
-        #print(self.god_mode)
-        #print(self.hit_box.center, self.rect.center)
 
     def _blink_ship(self):
         """To denote that the ship is invincible after respawning"""

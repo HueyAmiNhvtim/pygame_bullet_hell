@@ -14,8 +14,7 @@ class Settings:
         # Ship settings
         self.slow_scale = 1 / 4
         self.god_time = 3000
-        self.circle_color = (105, 105, 105)  # I don't remember where I put this
-        self.ships_health = 1000
+        self.ships_health = 1
 
         # Alien settings:
         self.movement_cooldown = 5000
@@ -24,8 +23,18 @@ class Settings:
         self.bullet_speed = 7
         self.bullet_height = 15
         self.bullet_width = 5
-        self.bullet_color = (0, 255, 0)
         self.boolet_limit = 4
+
+        self.initialize_dynamic_settings()
+
+    def initialize_dynamic_settings(self):
+        # For settings that can be changed during the game.
+        # Ship settings
+        self.ship_speed = 5
+
+        # Alien settings
+        self.alien_speed = 3
+        self.alien_health = 3
 
         # Pattern settings
         self.ali_bullet_speed = 1
@@ -36,7 +45,7 @@ class Settings:
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
         self.aiming_bullets_per_burst = 2
         self.aiming_bullet_cooldown = 100
-        self.aiming_burst_cooldown = 400   # Cooldown between burst
+        self.aiming_burst_cooldown = 400  # Cooldown between burst
 
         # Tri-Pattern
         self.tri_bullets_per_burst = 4
@@ -62,16 +71,8 @@ class Settings:
         # Cooldown
         self.cyclone_bullet_cooldown = 25
         self.cyclone_time = 3000
-        self.initialize_dynamic_settings()
 
-    def initialize_dynamic_settings(self):
-        # For settings that can be changed during the game.
-        # Ship settings
-        self.ship_speed = 5
 
-        # Alien settings
-        self.alien_speed = 3
-        self.alien_health = 3
 
     def increase_level(self):
         pass
