@@ -35,8 +35,8 @@ class BulletAlienUno(Sprite):
 
     def draw_bullet(self):
         """Draw the boolet"""
-        self.screen.blit(self.image, self.rect)
         self.screen.blit(self.bullet_hitbox, self.actual_rect)
+        self.screen.blit(self.image, self.rect)
 
     def update(self):
         """Generic bullet update in 2D"""
