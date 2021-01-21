@@ -308,6 +308,7 @@ class WhatIsThisAbomination:
         self.ship.god_mode = False
         self.ship.image.set_alpha(255)
 
+
 if __name__ == "__main__":
     game = WhatIsThisAbomination()
     game.run_game()
