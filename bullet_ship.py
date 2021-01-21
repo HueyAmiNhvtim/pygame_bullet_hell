@@ -14,15 +14,13 @@ class Bullet(Sprite):
         self.image = main_game.ship_bullet
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image.convert_alpha())
-        # self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
-        self.rect.midtop = main_game.ship.rect.midtop
+        self.rect.midtop = main_game.ship.ship_rect.midtop
 
         # Store the bullet's position for easier calculation and accessibility. Will have to update
         # the rect, too.
         self.y = float(self.rect.y)
 
     def draw_bullet(self):
-        # pygame.draw.rect(self.screen, self.color, self.rect)
         self.screen.blit(self.image, self.rect)
 
     def update(self):

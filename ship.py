@@ -16,6 +16,7 @@ class Ship(Sprite):
         self.core = pygame.image.load("images/core.bmp")
         self.ship_rect = self.image.get_rect()
         self.rect = self.core.get_rect()
+        # self.bombs = self.settings.bomb_limit
 
         # Start the ship at the middle bottom of the screen. Place the core in the middle of the ship
         self.ship_rect.midbottom = self.screen_rect.midbottom

@@ -35,6 +35,7 @@ class WhatIsThisAbomination:
         # Groups.
         self.bullets = Group()
         self.aliens = Group()
+        self.bombs = Group()
         self.alien_bullets = Group()  # To account for bullets fired by the aliens
 
         # Background colors. Hopefully will be replaced by animated frame I rip off from the Internet
@@ -51,6 +52,7 @@ class WhatIsThisAbomination:
         # Load resources. I can't justify myself putting in the SpriteSheet code from
         # the Net and given my time constraint, I have to do this ugly.
         self.ship_bullet = pygame.image.load("images/bullet_ship.bmp")
+        # self.bomb_ship = pygame.image.load("images/bomb_effect.bmp")  I don't have enough time to learn how to rotate and expand image from center
         self.al_bullet_one = pygame.image.load("images/bullet_al.bmp")
         self.al_bullet_two = pygame.image.load("images/bullet_al_2.bmp")
         self.al_bullet_three = pygame.image.load("images/bullet_al_3.bmp")
@@ -85,6 +87,7 @@ class WhatIsThisAbomination:
         self._update_aliens()
         self._draw_bullets()
         self._draw_alien_bullets()
+        self._draw_bombs()
         pygame.display.flip()
 
     def _fire_bullet(self):
@@ -116,6 +119,11 @@ class WhatIsThisAbomination:
             bullet.draw_bullet()  # False warning. Plz ignore
             # print(bullet.rect.midbottom)
         # print(len(self.alien_bullets))
+
+    def _draw_bombs(self):
+        self.bombs.update()
+        for bomb in self.bombs:
+            bomb.draw_bomb()
 
     def _update_ships(self):
         self._check_ship_hit()
@@ -190,6 +198,9 @@ class WhatIsThisAbomination:
     def _update_aliens(self):
         """Update alien_positions and draw them out..."""
         self.aliens.update()
+        for alien in self.aliens:
+            alien.update_health()
+            alien.draw_bar_health()
         self.aliens.draw(self.screen)
         self._check_alien_bullet_collisions()
 
@@ -202,7 +213,9 @@ class WhatIsThisAbomination:
                 alien.health -= 1
                 if alien.health == 0:
                     self.aliens.remove(alien)
+        self._end_alien_lost()
 
+    def _end_alien_lost(self):
         if len(self.aliens) == 0:
             # Create new group. In the future, this is where enemies will gain new patterns
             # and gain more strength in number. Provided I don't procrastinate by
@@ -210,6 +223,7 @@ class WhatIsThisAbomination:
             self._create_aliens()
             self.ship.respawn_ship()
             self.bullets.empty()
+            self.bombs.empty()
             self.alien_bullets.empty()
 
     def _display_fps(self):

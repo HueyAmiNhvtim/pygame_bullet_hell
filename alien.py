@@ -52,6 +52,17 @@ class Alien(Sprite):
         # Initiating pattern manager
         self.pattern_manager = PatternManager(main_game, self)
 
+        # For the health tooltip:
+        self.bar_width, self.bar_height = (25, 25)
+        self.bar_surface = pygame.Surface((self.bar_width, self.bar_height))
+        self.bar_surface.set_alpha(0)
+        self.text_color = (0, 255, 255)
+        self.font = pygame.font.Font("font/edosz.ttf", 24)
+
+        self.bar_rect = pygame.Rect(0, 0, self.bar_width, self.bar_height)
+        self.bar_rect.midbottom = self.rect.midtop
+        self.update_health()
+
     def update(self):
         """This is where the alien will move. Will need to fix if reached destination"""
         self.pattern_manager.use_pattern()
@@ -87,6 +98,13 @@ class Alien(Sprite):
             self.movement_disabled = False
             self.confirmed_switch = True  # Reactivate the flag so that the alien can switch pattern again.
 
-    def health_tooltip(self):
+    def update_health(self):
         """Display health on top of the alien."""
-        pass
+        self.bar_rect.midbottom = self.rect.midtop
+        self.health_display = self.font.render(str(self.health), True, self.text_color, None)
+        self.health_rect = self.health_display.get_rect()
+        self.health_rect.center = self.bar_rect.center
+
+    def draw_bar_health(self):
+        self.screen.blit(self.bar_surface, self.bar_rect)
+        self.screen.blit(self.health_display, self.health_rect)

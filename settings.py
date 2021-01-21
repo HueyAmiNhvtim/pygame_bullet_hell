@@ -15,10 +15,6 @@ class Settings:
         self.slow_scale = 1 / 4
         self.god_time = 3000
         self.circle_color = (105, 105, 105)
-        self.bomb_limit = 3
-        self.bomb_update_tick = 200
-        self.bomb_time = 2000
-        self.expand_rate = 2
 
         # Alien settings:
         self.movement_cooldown = 5000
