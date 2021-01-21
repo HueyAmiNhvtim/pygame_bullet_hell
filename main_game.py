@@ -147,9 +147,11 @@ class WhatIsThisAbomination:
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
         if not self.ship.god_mode:
-            if bullet_hit := pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
+            if pygame.sprite.spritecollideany(self.ship, self.alien_bullets):
+                bullet_hit = pygame.sprite.spritecollideany(self.ship, self.alien_bullets)
                 self._check_ship_hit_mask(bullet_hit)   # False warning
-            elif alien_hit := pygame.sprite.spritecollideany(self.ship, self.aliens):
+            elif pygame.sprite.spritecollideany(self.ship, self.aliens):
+                alien_hit = pygame.sprite.spritecollideany(self.ship, self.aliens)
                 self._check_ship_hit_mask(alien_hit)  # False Warning
 
     def _check_ship_hit_mask(self, object_hit):
