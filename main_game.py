@@ -7,6 +7,8 @@ from settings import Settings
 from ship import Ship
 from bullet_ship import Bullet
 from alien import Alien
+from stats import Stats
+
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
 #        Summon aliens on both side of the screen. SYMMETRY FTW
@@ -31,6 +33,7 @@ class WhatIsThisAbomination:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen_rect = self.screen.get_rect()
         self.ship = Ship(self)
+        self.stats = Stats(self)
 
         # Groups.
         self.bullets = Group()
@@ -64,8 +67,10 @@ class WhatIsThisAbomination:
         while True:
             self._check_events()
             self._display_fps()
-            self.ship.update()
-            self._update_screen()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_objects()
+            self._draw_screen()
             clock.tick(self.settings.FPS)
 
     def _check_events(self):
@@ -79,16 +84,24 @@ class WhatIsThisAbomination:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-    def _update_screen(self):
+    def _draw_screen(self):
         self.screen.fill(self.settings.bg_color)
-        self._update_bullets()
-        self._update_alien_bullets()
+        self._draw_bullets()
+        self.ship.draw_ship()
+        if self.stats.game_active:
+            for alien in self.aliens:
+                alien.update_health()
+                alien.draw_bar_health()
+        self.aliens.draw(self.screen)
+        self._draw_alien_bullets()
+        pygame.display.flip()
+
+    def _update_objects(self):
+        """Update all object's movements"""
         self._update_ships()
         self._update_aliens()
-        self._draw_bullets()
-        self._draw_alien_bullets()
-        self._draw_bombs()
-        pygame.display.flip()
+        self._update_bullets()
+        self._update_alien_bullets()
 
     def _fire_bullet(self):
         if len(self.bullets) < self.settings.boolet_limit:
@@ -96,12 +109,13 @@ class WhatIsThisAbomination:
             self.bullets.add(bullet)
 
     def _update_bullets(self):
+        self.bullets.update()
         for bullet in self.bullets:
             if bullet.rect.y < 0:
                 self.bullets.remove(bullet)
-        # print(len(self.bullets))
 
     def _update_alien_bullets(self):
+        self.alien_bullets.update()
         for bullet in self.alien_bullets:
             if bullet.rect.y < 0 or bullet.rect.y > self.screen_rect.height:
                 self.alien_bullets.remove(bullet)
@@ -109,25 +123,15 @@ class WhatIsThisAbomination:
                 self.alien_bullets.remove(bullet)
 
     def _draw_bullets(self):
-        self.bullets.update()
         for bullet in self.bullets:
             bullet.draw_bullet()  # False warning. Plz ignore.
 
     def _draw_alien_bullets(self):
-        self.alien_bullets.update()
         for bullet in self.alien_bullets:
             bullet.draw_bullet()  # False warning. Plz ignore
-            # print(bullet.rect.midbottom)
-        # print(len(self.alien_bullets))
-
-    def _draw_bombs(self):
-        self.bombs.update()
-        for bomb in self.bombs:
-            bomb.draw_bomb()
 
     def _update_ships(self):
         self._check_ship_hit()
-        self.ship.draw_ship()
 
     def _check_ship_hit(self):
         """Check if ship hits aliens and/ or their bullets"""
@@ -153,8 +157,10 @@ class WhatIsThisAbomination:
             # print("Collision detected!")
             self.ship.respawn_ship()  # Maybe not doing mask with the alien and the ship.
             self.ship.start_respawn_time = pygame.time.get_ticks()
+            self.stats.ships_left -= 1
             self.ship.god_mode = True
-            # print("HIT!", self.ship.god_mode)
+
+        self._check_ship_conditions()
 
     def _check_keydown_events(self, event):
         """Respond to key presses appropriately"""
@@ -182,7 +188,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(max_alien_per_row - 14):
+        for i in range(max_alien_per_row):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
@@ -198,10 +204,6 @@ class WhatIsThisAbomination:
     def _update_aliens(self):
         """Update alien_positions and draw them out..."""
         self.aliens.update()
-        for alien in self.aliens:
-            alien.update_health()
-            alien.draw_bar_health()
-        self.aliens.draw(self.screen)
         self._check_alien_bullet_collisions()
 
     def _check_alien_bullet_collisions(self):
@@ -224,7 +226,16 @@ class WhatIsThisAbomination:
             self.ship.respawn_ship()
             self.bullets.empty()
             self.bombs.empty()
+            self.stats.level += 1
             self.alien_bullets.empty()
+
+    def _check_ship_conditions(self):
+        """If health is empty, reset the current stats"""
+        if self.stats.ships_left == 0:
+            self.stats.game_active = False
+            self.stats.reset_stats()
+            self.settings.initialize_dynamic_settings()
+            pygame.mouse.set_visible(True)
 
     def _display_fps(self):
         """Show the program's FPS in the window handle.WILL DELETE LATER.

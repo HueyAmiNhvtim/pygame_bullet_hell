@@ -14,7 +14,8 @@ class Settings:
         # Ship settings
         self.slow_scale = 1 / 4
         self.god_time = 3000
-        self.circle_color = (105, 105, 105)
+        self.circle_color = (105, 105, 105)  # I don't remember where I put this
+        self.ships_health = 1000
 
         # Alien settings:
         self.movement_cooldown = 5000
@@ -28,12 +29,12 @@ class Settings:
 
         # Pattern settings
         self.ali_bullet_speed = 1
-        # self.pattern_cooldown = 5000  # Cool down between patterns
+        self.pattern_cooldown = 500  # Cool down between patterns
         # self.event_deque = deque([self.first_pattern, self.second_pattern, self.first_pattern, self.third_pattern, self.first_pattern,self.fourth_pattern])
 
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
-        self.aiming_bullets_per_burst = 5
+        self.aiming_bullets_per_burst = 2
         self.aiming_bullet_cooldown = 100
         self.aiming_burst_cooldown = 400   # Cooldown between burst
 
@@ -52,11 +53,11 @@ class Settings:
         self.nope_bullets_ring = 10  # Number of bullets per ring.
 
         # homing_bullets
-        self.homing_bullets_per_burst = 2
+        self.homing_bullets_per_burst = 1
         self.homing_bullet_cooldown = 100
         self.homing_burst_cooldown = 1000  # Cooldown between burst
         self.homing_update_tick = 150  # Rate to update bullet's vector
-        self.homing_time = 1400  # Total time bullets allowed to homing
+        self.homing_time = 3000  # Total time bullets allowed to homing
 
         # Cooldown
         self.cyclone_bullet_cooldown = 25
@@ -69,5 +70,8 @@ class Settings:
         self.ship_speed = 5
 
         # Alien settings
-        self.alien_speed = 4
+        self.alien_speed = 3
         self.alien_health = 3
+
+    def increase_level(self):
+        pass
