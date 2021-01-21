@@ -6,7 +6,7 @@ class Stats:
         self.game_active = False  # Flag for the Play button...
 
         # General ship_stats:
-        self.ships_left = self.settings.ships_health
+        self.ships_left = int(round(self.settings.ships_health))
         self.score = 0
         self.level = 1
 
@@ -15,7 +15,7 @@ class Stats:
 
     def reset_stats(self):
         """Reset stats after each game"""
-        self.ships_left = self.settings.ships_health
+        self.ships_left = int(round(self.settings.ships_health))
         self.score = 0
         self.level = 1
 

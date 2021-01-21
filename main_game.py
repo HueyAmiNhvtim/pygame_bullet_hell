@@ -115,7 +115,7 @@ class WhatIsThisAbomination:
         self._update_alien_bullets()
 
     def _fire_bullet(self):
-        if len(self.bullets) < self.settings.boolet_limit:
+        if len(self.bullets) < int(round(self.settings.boolet_limit)):
             bullet = Bullet(self)
             self.bullets.add(bullet)
 
@@ -261,7 +261,6 @@ class WhatIsThisAbomination:
             self.ship.respawn_ship()
             self.bullets.empty()
             self.bombs.empty()
-            self.stats.ships_left = self.settings.ships_health
             self.stats.level += 1
             self.scoreboard.update_level()
             self.scoreboard.update_ships()

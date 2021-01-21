@@ -16,7 +16,6 @@ class Settings:
         # Ship settings
         self.slow_scale = 1 / 4
         self.god_time = 3000
-        self.ships_health = 1
         self.graze_increment = 5
 
         # Alien settings:
@@ -26,7 +25,6 @@ class Settings:
         self.bullet_speed = 7
         self.bullet_height = 15
         self.bullet_width = 5
-        self.boolet_limit = 4
 
         # Bullet- aliens settings, for homing ones only
         self.homing_speed = 1
@@ -65,6 +63,9 @@ class Settings:
 
     def initialize_dynamic_settings(self):
         # For settings that can be changed during the game.
+        self.boolet_limit = 4
+        self.ships_health = 1
+
         self.aliens_on_screen = 2
         # Alien settings
         self.alien_speed = 3
@@ -89,3 +90,5 @@ class Settings:
             self.pattern_tier += 0.5
         self.alien_points += 5
         self.alien_speed += 0.2
+        self.bullet_limit += 0.3
+        self.ships_health += 0.25
