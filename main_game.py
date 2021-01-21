@@ -72,7 +72,6 @@ class WhatIsThisAbomination:
         """Running the main loop of the game"""
         while True:
             self._check_events()
-            self._display_fps()
             if self.stats.game_active:
                 self.ship.update()
                 self._update_objects()
@@ -262,9 +261,9 @@ class WhatIsThisAbomination:
             self.bullets.empty()
             self.bombs.empty()
             self.stats.level += 1
+            self.settings.increase_level()
             self.scoreboard.update_level()
             self.scoreboard.update_ships()
-            self.settings.increase_level()
             self.alien_bullets.empty()
 
     def _check_ship_conditions(self):
