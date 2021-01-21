@@ -32,30 +32,16 @@ class Settings:
         self.homing_speed = 1
         self.initialize_dynamic_settings()
 
-    def initialize_dynamic_settings(self):
-        # For settings that can be changed during the game.
-
-        self.aliens_on_screen = 1
-        # Alien settings
-        self.alien_speed = 3
-        self.alien_health = 3
-        self.alien_points = 100
-
-        # Pattern settings
-        self.ali_bullet_speed = 1
-        self.pattern_cooldown = 500  # Cool down between patterns
-        # self.event_deque = deque([self.first_pattern, self.second_pattern, self.first_pattern, self.third_pattern, self.first_pattern,self.fourth_pattern])
-
         # Bullet - alien settings
         # How many bullets allowed in a burst. Expect to have a lot of these settings for different patterns
-        self.aiming_bullets_per_burst = 2
+        self.aiming_bullets_per_burst = 3
         self.aiming_bullet_cooldown = 100
         self.aiming_burst_cooldown = 400  # Cooldown between burst
 
         # Tri-Pattern
-        self.tri_bullets_per_burst = 4
+        self.tri_bullets_per_burst = 5
         self.tri_cooldown = 300
-        self.tri_bullet_cooldown = 500
+        self.tri_bullet_cooldown = 400
         self.tri_burst_cooldown = 800
         self.angle_between_stream = 30  # Use this to rotate the vector for each stream
 
@@ -77,5 +63,29 @@ class Settings:
         self.cyclone_bullet_cooldown = 25
         self.cyclone_time = 3000
 
+    def initialize_dynamic_settings(self):
+        # For settings that can be changed during the game.
+        self.aliens_on_screen = 2
+        # Alien settings
+        self.alien_speed = 3
+        self.alien_points = 100
+        self.alien_health = 2
+        self.pattern_choice = 2
+        self.pattern_tier = 1
+
+        # Pattern settings
+        self.ali_bullet_speed = 1
+        self.pattern_cooldown = 500  # Cool down between patterns
+
     def increase_level(self):
-        pass
+        if self.pattern_cooldown >= 100:
+            self.pattern_cooldown -= 40
+        self.pattern_cooldown
+        self.aliens_on_screen += 0.5
+        self.alien_health += 0.25
+        if self.pattern_choice < 5:
+            self.pattern_choice += 0.25
+        if self.pattern_tier < 5:
+            self.pattern_tier += 0.5
+        self.alien_points += 5
+        self.alien_speed += 0.2

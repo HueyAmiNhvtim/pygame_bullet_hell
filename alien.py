@@ -29,7 +29,7 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
-        self.health = self.settings.alien_health
+        self.health = int(round(self.settings.alien_health))
 
         # Vector-based movement
         self.vector = Vector2()

@@ -220,7 +220,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(self.settings.aliens_on_screen):
+        for i in range(int(round(self.settings.aliens_on_screen))):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
