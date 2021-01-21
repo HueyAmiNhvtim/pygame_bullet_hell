@@ -261,6 +261,8 @@ class WhatIsThisAbomination:
             self.bullets.empty()
             self.bombs.empty()
             self.stats.level += 1
+            if self.stats.level % 4 == 0:
+                self.stats.ships_left += 1
             self.settings.increase_level()
             self.scoreboard.update_level()
             self.scoreboard.update_ships()

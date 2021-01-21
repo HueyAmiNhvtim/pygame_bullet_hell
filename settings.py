@@ -12,6 +12,7 @@ class Settings:
         self.FPS = 60
         # Ship settings
         self.ship_speed = 5
+        self.ships_health = 4
 
         # Ship settings
         self.slow_scale = 1 / 4
@@ -64,7 +65,6 @@ class Settings:
     def initialize_dynamic_settings(self):
         # For settings that can be changed during the game.
         self.boolet_limit = 4
-        self.ships_health = 4
 
         self.aliens_on_screen = 2
         # Alien settings
@@ -90,4 +90,3 @@ class Settings:
         self.alien_points += 5
         self.alien_speed += 0.2
         self.boolet_limit += 0.3
-        self.ships_health += 0.25
