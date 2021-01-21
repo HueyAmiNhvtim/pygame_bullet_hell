@@ -220,7 +220,7 @@ class WhatIsThisAbomination:
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
 
-        for i in range(1):
+        for i in range(self.settings.aliens_on_screen):
             self._create_alien(i)
 
     def _create_alien(self, column_number, row_number=0):
@@ -265,6 +265,7 @@ class WhatIsThisAbomination:
             self.stats.level += 1
             self.scoreboard.update_level()
             self.scoreboard.update_ships()
+            self.settings.increase_level()
             self.alien_bullets.empty()
 
     def _check_ship_conditions(self):

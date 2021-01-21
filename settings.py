@@ -10,6 +10,8 @@ class Settings:
         self.screen_height = 700
         self.bg_color = (49, 0, 71)
         self.FPS = 60
+        # Ship settings
+        self.ship_speed = 5
 
         # Ship settings
         self.slow_scale = 1 / 4
@@ -26,13 +28,14 @@ class Settings:
         self.bullet_width = 5
         self.boolet_limit = 4
 
+        # Bullet- aliens settings, for homing ones only
+        self.homing_speed = 1
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
         # For settings that can be changed during the game.
-        # Ship settings
-        self.ship_speed = 5
 
+        self.aliens_on_screen = 1
         # Alien settings
         self.alien_speed = 3
         self.alien_health = 3
@@ -73,8 +76,6 @@ class Settings:
         # Cooldown
         self.cyclone_bullet_cooldown = 25
         self.cyclone_time = 3000
-
-
 
     def increase_level(self):
         pass

@@ -69,7 +69,7 @@ class BulletAlienCuatro(BulletAlienUno):
     def __init__(self, main_game, shooter):
         super().__init__(main_game, shooter)
         self.image = main_game.al_bullet_four
-        self.speed = self.speed * 1
+        self.speed = self.settings.homing_speed
         self.bullet_hitbox = pygame.Surface(size=(4, 4))  # True hitbox of bullet for some sick bullet dodging
         self.bullet_rect = self.bullet_hitbox.get_rect()
         self.mask = pygame.mask.from_surface(self.bullet_hitbox)
