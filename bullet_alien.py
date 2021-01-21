@@ -94,7 +94,7 @@ class BulletAlienCuatro(BulletAlienUno):
         self.y += self.normalized_vector[1] * self.speed
         self.rect.x = self.x
         self.rect.y = self.y
-        self.bullet_rect.center = self.rect.center
+        self.actual_rect.center = self.rect.center
 
     def _check_for_vector_update(self):
         if self.homing:
