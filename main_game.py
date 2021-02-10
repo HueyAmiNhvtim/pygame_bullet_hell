@@ -56,9 +56,11 @@ class WhatIsThisAbomination:
         # Caption and play button
         self.caption = "My 'game'"
         pygame.display.set_caption(self.caption)
-        self.instructions = Button(self, "WASD to move\nSpace to shoot\nShift to slow down", 0, font_size=24)
-        self.play_button = Button(self, "Play", 1)
-        self.escape_button = Button(self, "Esc?", 2)
+        self.instructions_title = Button(self, "INSTRUCTIONS", -2, font_size=24, bar_height=30)
+        self.instructions = Button(self, "WASD to move;\nSpace to shoot;\nShift to slow down", -1, font_size=24,
+                                   bar_height=30, bar_width=700)
+        self.play_button = Button(self, "Play", 0)
+        self.escape_button = Button(self, "Esc?", 1)
 
         # Load resources. I can't justify myself putting in the SpriteSheet code from
         # the Net and given my time constraint, I have to do this ugly. Extremely ugly
@@ -101,6 +103,7 @@ class WhatIsThisAbomination:
                 alien.update_health()
                 alien.draw_bar_health()
         else:
+            self.instructions_title.draw_button()
             self.instructions.draw_button()
             self.play_button.draw_button()
             self.escape_button.draw_button()
