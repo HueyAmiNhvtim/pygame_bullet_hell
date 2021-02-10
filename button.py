@@ -2,7 +2,7 @@ import pygame
 
 
 class Button:
-    def __init__(self, main_game, message: str, index):
+    def __init__(self, main_game, message: str, index, font_size=48):
         self.main_game = main_game
         self.screen = main_game.screen
         self.screen_rect = self.main_game.screen_rect
@@ -10,7 +10,7 @@ class Button:
         self.bar_width, self.bar_height = (300, 60)
         self.button_color = (0, 58, 7)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.Font("font/TravelingTypewriter.ttf", 48)
+        self.font = pygame.font.Font("font/TravelingTypewriter.ttf", font_size)
 
         # Enclose the font with a RECT
         self.bar_rect = pygame.Rect(0, 0, self.bar_width, self.bar_height)

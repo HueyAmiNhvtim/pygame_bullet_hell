@@ -56,8 +56,9 @@ class WhatIsThisAbomination:
         # Caption and play button
         self.caption = "My 'game'"
         pygame.display.set_caption(self.caption)
-        self.play_button = Button(self, "Play", 0)
-        self.escape_button = Button(self, "Esc?", 1)
+        self.instructions = Button(self, "WASD to move\nSpace to shoot\nShift to slow down", 0, font_size=24)
+        self.play_button = Button(self, "Play", 1)
+        self.escape_button = Button(self, "Esc?", 2)
 
         # Load resources. I can't justify myself putting in the SpriteSheet code from
         # the Net and given my time constraint, I have to do this ugly. Extremely ugly
@@ -100,6 +101,7 @@ class WhatIsThisAbomination:
                 alien.update_health()
                 alien.draw_bar_health()
         else:
+            self.instructions.draw_button()
             self.play_button.draw_button()
             self.escape_button.draw_button()
         self.aliens.draw(self.screen)
@@ -217,7 +219,7 @@ class WhatIsThisAbomination:
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         available_space_x = self.screen_rect.width - 3 * alien_width
-        max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
+        # max_alien_per_row = available_space_x // (alien_width + alien_width // 5)
         # for j in range(2):
             # for i in range(max_alien_per_row):
                 # self._create_alien(i)
@@ -282,7 +284,7 @@ class WhatIsThisAbomination:
             self.settings.initialize_dynamic_settings()
 
             # Change play button slightly
-            self.play_button.message = "Play again?"
+            self.play_button.message = "Play again? (P to play)"
             self.play_button.update_msg()
             self.play_button.insert_msg()
 
