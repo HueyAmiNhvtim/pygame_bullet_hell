@@ -51,6 +51,15 @@ class Ship(Sprite):
         # Up - Left, Down-Right not firing bullets for some reason...
         # The above problem is due to ghosting issues on the keyboard...
         keys = pygame.key.get_pressed()
+        self._movement_update(keys)
+        self._shoot_update(keys)
+        self.ship_rect.x = self.x
+        self.ship_rect.y = self.y
+        self.rect.centerx = self.ship_rect.centerx
+        self.rect.top = self.ship_rect.top + 5
+        self.hit_box.center = self.rect.center
+
+    def _movement_update(self, keys):
         if keys[pygame.K_d] and self.rect.right <= self.screen_rect.right:
             self._update_vertical(keys)
             self.x += 1 * self.settings.ship_speed
@@ -61,11 +70,6 @@ class Ship(Sprite):
             self.y -= 1 * self.settings.ship_speed
         elif keys[pygame.K_s] and self.rect.bottom <= self.screen_rect.bottom:
             self.y += 1 * self.settings.ship_speed
-        self.ship_rect.x = self.x
-        self.ship_rect.y = self.y
-        self.rect.centerx = self.ship_rect.centerx
-        self.rect.top = self.ship_rect.top + 5
-        self.hit_box.center = self.rect.center
 
     def _update_vertical(self, keys):
         if keys[pygame.K_w] and self.ship_rect.top >= self.screen_rect.top:
@@ -118,7 +122,9 @@ class Ship(Sprite):
     # For shooting boolets.
     def _fire_bullet(self):
         if len(self.main_game.bullets) < math.floor(self.settings.boolet_limit):
-            bullet = Bullet(self)
-            self.main_game.add(bullet)
+            bullet = Bullet(self.main_game)
+            self.main_game.bullets.add(bullet)
 
-
+    def _shoot_update(self, keys):
+        if keys[pygame.K_RETURN]:
+            self._fire_bullet()

@@ -198,8 +198,6 @@ class WhatIsThisAbomination:
             self.scoreboard.save_high_score()
             pygame.quit()
             sys.exit()
-        elif event.key == pygame.K_RETURN:
-            self._fire_bullet()
         elif event.key == pygame.K_LSHIFT:
             # Slow down ship by a constant rate if LSHIFT is pressed
             self.settings.ship_speed *= self.settings.slow_scale
