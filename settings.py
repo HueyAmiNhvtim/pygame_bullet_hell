@@ -56,10 +56,10 @@ class Settings:
         self.homing_bullets_per_burst = 1
         self.homing_bullet_cooldown = 100
         self.homing_burst_cooldown = 1000  # Cooldown between burst
-        self.homing_update_tick = 150  # Rate to update bullet's vector
-        self.homing_time = 3000  # Total time bullets allowed to homing
+        self.homing_update_tick = 300  # Rate to update bullet's vector
+        self.homing_time = 4000  # Total time bullets allowed to homing
 
-        # Cooldown
+        # Cooldown for cyclone
         self.cyclone_bullet_cooldown = 25
         self.cyclone_time = 3000
 
