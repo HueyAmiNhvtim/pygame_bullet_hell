@@ -26,7 +26,7 @@ class Settings:
         self.bullet_speed = 7
         self.bullet_height = 15
         self.bullet_width = 5
-        self.bullet_cooldown = 200
+        self.ship_bullet_cooldown = 100
 
         # Bullet- aliens settings, for homing ones only
         self.homing_speed = 1

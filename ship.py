@@ -46,6 +46,11 @@ class Ship(Sprite):
         self.alpha_modifier = 255 // (self.settings.FPS // 4)
         self.up = False  # Boolean to detect whether to increase opacity or not
 
+        # Shoot bullet attributes
+        self.bullet_cooldown = self.settings.ship_bullet_cooldown
+        self.shoot_disabled = False
+        self.last_bullet_fired = pygame.time.get_ticks()
+
     def update(self):
         """Full movement in 2D space whoop. Will add Shift for slower movement later"""
         # Up - Left, Down-Right not firing bullets for some reason...
@@ -119,12 +124,21 @@ class Ship(Sprite):
         self.y = float(self.ship_rect.y)
         self.hit_box.center = self.rect.center
 
-    # For shooting boolets.
     def _fire_bullet(self):
         if len(self.main_game.bullets) < math.floor(self.settings.boolet_limit):
             bullet = Bullet(self.main_game)
             self.main_game.bullets.add(bullet)
 
     def _shoot_update(self, keys):
-        if keys[pygame.K_RETURN]:
+        self._check_bullet_cooldown()
+        if keys[pygame.K_RETURN] and not self.shoot_disabled:
             self._fire_bullet()
+            self.shoot_disabled = True
+
+    def _check_bullet_cooldown(self):
+        """Yeah, I don't want it to turn into a lazer beam of ultimate lethality"""
+        time_now = pygame.time.get_ticks()
+        if time_now - self.last_bullet_fired >= self.bullet_cooldown:
+            self.shoot_disabled = False
+            self.last_bullet_fired = pygame.time.get_ticks()
+
