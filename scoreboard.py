@@ -22,6 +22,9 @@ class Scoreboard:
         self.update_ships()
         self.update_level()
 
+        self.scoreboard_height = self.high_score_rect.bottom
+        print(self.scoreboard_height)
+
     def update_score(self):
         rounded = round(self.stats.score)
         score_formatted = f"{rounded:,}"
@@ -60,10 +63,11 @@ class Scoreboard:
         self.level_rect.top = 20
 
     def display_info(self):
-        self.screen.blit(self.score_display, self.score_rect)
-        self.screen.blit(self.high_score_display, self.high_score_rect)
-        self.screen.blit(self.level_display, self.level_rect)
-        self.ships.draw(self.screen)
+        if self.main_game.ship.y >= self.scoreboard_height:
+            self.screen.blit(self.score_display, self.score_rect)
+            self.screen.blit(self.high_score_display, self.high_score_rect)
+            self.screen.blit(self.level_display, self.level_rect)
+            self.ships.draw(self.screen)
 
     def check_high_score(self):
         """Check to see if there is a new high score"""

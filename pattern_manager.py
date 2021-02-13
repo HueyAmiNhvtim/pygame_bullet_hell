@@ -31,7 +31,7 @@ class PatternManager:
                                  3: self.fourth_pattern, 4: self.fifth_pattern}
 
         self.event_deque = self._choose_pattern()
-        self.wait = False
+        self.wait = False  # Wait to switch pattern
         self.last_switch = pygame.time.get_ticks()
 
     def _choose_pattern(self):
