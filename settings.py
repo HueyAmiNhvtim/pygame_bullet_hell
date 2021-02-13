@@ -64,7 +64,7 @@ class Settings:
 
     def initialize_dynamic_settings(self):
         # For settings that can be changed during the game.
-        self.boolet_limit = 4
+        self.boolet_limit = 2
 
         self.aliens_on_screen = 2
         # Alien settings

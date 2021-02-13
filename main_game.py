@@ -59,7 +59,7 @@ class WhatIsThisAbomination:
         self.instructions_title = Button(self, "INSTRUCTIONS", -2, font_size=24, bar_height=30)
         self.instructions = Button(self, "WASD to move;\nSpace to shoot;\nShift to slow down", -1, font_size=24,
                                    bar_height=30, bar_width=700)
-        self.play_button = Button(self, "Play", 0)
+        self.play_button = Button(self, "Play (P)", 0)
         self.escape_button = Button(self, "Esc?", 1)
 
         # Load resources. I can't justify myself putting in the SpriteSheet code from
