@@ -23,7 +23,12 @@ class Scoreboard:
         self.update_level()
 
         self.scoreboard_height = self.high_score_rect.bottom
-        print(self.scoreboard_height)
+
+        # Invisibility settings
+        self.alpha = 255  # 255: opaque, 0: transparent
+        self.frame_timer = 0  # For decreasing and increasing alpha
+        self.alpha_modifier = 255 // (self.settings.FPS // 10)
+        self.up = False  # Boolean to detect whether to increase opacity or not
 
     def update_score(self):
         rounded = round(self.stats.score)
@@ -63,11 +68,14 @@ class Scoreboard:
         self.level_rect.top = 20
 
     def display_info(self):
-        if self.main_game.ship.y >= self.scoreboard_height:
-            self.screen.blit(self.score_display, self.score_rect)
-            self.screen.blit(self.high_score_display, self.high_score_rect)
-            self.screen.blit(self.level_display, self.level_rect)
-            self.ships.draw(self.screen)
+        if self.main_game.ship.y <= self.scoreboard_height:
+            self._transparent_scoreboard()
+        else:
+            self._opaque_scoreboard()
+        self.screen.blit(self.score_display, self.score_rect)
+        self.screen.blit(self.high_score_display, self.high_score_rect)
+        self.screen.blit(self.level_display, self.level_rect)
+        self.ships.draw(self.screen)
 
     def check_high_score(self):
         """Check to see if there is a new high score"""
@@ -90,3 +98,34 @@ class Scoreboard:
                 self.update_high_score()
         except FileNotFoundError:
             return
+
+    def _transparent_scoreboard(self):
+        if self.frame_timer == self.settings.FPS // 4:
+            self.frame_timer = 0
+            self.up = not self.up
+
+        if self.up:
+            self.alpha -= self.alpha_modifier
+            if self.alpha < 0:
+                self.alpha = 0
+        self._set_alpha()
+        self.frame_timer += 1
+
+    def _opaque_scoreboard(self):
+        if self.frame_timer == self.settings.FPS // 4:
+            self.frame_timer = 0
+            self.up = not self.up   # Reverse boolean. Ship will go transparent first anyway
+
+        if not self.up:
+            self.alpha += self.alpha_modifier
+            if self.alpha > 255:
+                self.alpha = 255
+        self._set_alpha()
+        self.frame_timer += 1
+
+    def _set_alpha(self):
+        self.score_display.set_alpha(self.alpha)
+        self.high_score_display.set_alpha(self.alpha)
+        self.level_display.set_alpha(self.alpha)
+        for ship in self.ships:
+            ship.image.set_alpha(self.alpha)

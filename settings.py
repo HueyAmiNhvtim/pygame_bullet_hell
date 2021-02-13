@@ -82,7 +82,8 @@ class Settings:
         if self.pattern_cooldown >= 100:
             self.pattern_cooldown -= 40
         self.aliens_on_screen += 0.5
-        self.alien_health += 0.2
+        if self.alien_health <= 6:
+            self.alien_health += 0.2
         if self.pattern_choice < 5:
             self.pattern_choice += 0.25
         if self.pattern_tier < 5:
