@@ -53,10 +53,10 @@ class Settings:
         self.nope_bullets_ring = 10  # Number of bullets per ring.
 
         # homing_bullets
-        self.homing_bullets_per_burst = 1
+        self.homing_bullets_per_burst = 2
         self.homing_bullet_cooldown = 100
         self.homing_burst_cooldown = 1000  # Cooldown between burst
-        self.homing_update_tick = 300  # Rate to update bullet's vector
+        self.homing_update_tick = 500  # Rate to update bullet's vector
         self.homing_time = 4000  # Total time bullets allowed to homing
 
         # Cooldown for cyclone
@@ -69,10 +69,10 @@ class Settings:
 
         self.aliens_on_screen = 2
         # Alien settings
-        self.alien_speed = 3
+        self.alien_speed = 2
         self.alien_points = 100
         self.alien_health = 2
-        self.pattern_choice = 2
+        self.pattern_choice = 2  # How many patterns can be chosen
         self.pattern_tier = 1
 
         # Pattern settings
