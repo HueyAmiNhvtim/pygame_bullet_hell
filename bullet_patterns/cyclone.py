@@ -37,7 +37,7 @@ class Cyclone(NoScope):
             self.no_scope.shoot_burst()
 
     def shoot_boolet(self):
-        """Shoot each triplet of bullets"""
+        """A cyclone of bullets"""
         bullet = BulletAlienCinco(self.main_game, shooter=self.shooter)
         bullet.vector[0] = 0
         bullet.vector[1] = 1

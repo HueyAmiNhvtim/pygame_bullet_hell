@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+from bullet_ship import Bullet
 # There's a bug in invincibilty frame...
 
 
@@ -111,4 +112,7 @@ class Ship(Sprite):
         self.x = float(self.ship_rect.x)
         self.y = float(self.ship_rect.y)
         self.hit_box.center = self.rect.center
+
+    # For shooting boolets.
+    def _
 
