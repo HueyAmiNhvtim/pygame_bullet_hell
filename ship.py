@@ -1,4 +1,5 @@
 import pygame
+import math
 from pygame.sprite import Sprite
 from bullet_ship import Bullet
 # There's a bug in invincibilty frame...
@@ -9,9 +10,10 @@ class Ship(Sprite):
         """Initialize the ship and its starting positions"""
         super().__init__()
         # Load parent's class necessary attributes. I think that is a correct term for it...
-        self.screen = main_game_class.screen
+        self.main_game = main_game_class
+        self.screen = self.main_game.screen
         self.screen_rect = self.screen.get_rect()
-        self.settings = main_game_class.settings
+        self.settings = self.main_game.settings
 
         self.image = pygame.image.load("images/ship.bmp")
         self.core = pygame.image.load("images/core.bmp")
@@ -114,5 +116,9 @@ class Ship(Sprite):
         self.hit_box.center = self.rect.center
 
     # For shooting boolets.
-    def _
+    def _fire_bullet(self):
+        if len(self.main_game.bullets) < math.floor(self.settings.boolet_limit):
+            bullet = Bullet(self)
+            self.main_game.add(bullet)
+
 

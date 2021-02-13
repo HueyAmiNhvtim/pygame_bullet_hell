@@ -30,7 +30,7 @@ clock = pygame.time.Clock()
 
 class WhatIsThisAbomination:
     def __init__(self):
-        """LOAD GAME RESOURCES AND MANAGE GAME RESOURCES0"""
+        """LOAD GAME RESOURCES AND MANAGE GAME RESOURCES"""
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
@@ -118,11 +118,6 @@ class WhatIsThisAbomination:
         self._update_aliens()
         self._update_bullets()
         self._update_alien_bullets()
-
-    def _fire_bullet(self):
-        if len(self.bullets) < math.floor(self.settings.boolet_limit):
-            bullet = Bullet(self)
-            self.bullets.add(bullet)
 
     def _update_bullets(self):
         self.bullets.update()
