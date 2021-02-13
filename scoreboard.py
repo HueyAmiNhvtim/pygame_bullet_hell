@@ -1,6 +1,7 @@
 import pygame
 import json
 from ship import Ship
+# TO-DO: reset frame-timer to 0 everytime the scoreboard transition thing is called.
 
 
 class Scoreboard:
@@ -108,6 +109,7 @@ class Scoreboard:
             self.alpha -= self.alpha_modifier
             if self.alpha < 0:
                 self.alpha = 0
+                self.frame_timer = 0
         self._set_alpha()
         self.frame_timer += 1
 
@@ -120,6 +122,7 @@ class Scoreboard:
             self.alpha += self.alpha_modifier
             if self.alpha > 255:
                 self.alpha = 255
+                self.frame_timer = 0
         self._set_alpha()
         self.frame_timer += 1
 
