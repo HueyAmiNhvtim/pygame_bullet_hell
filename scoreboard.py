@@ -36,7 +36,7 @@ class Scoreboard:
         score_formatted = f"High score: {rounded:,}"
         self.high_score_display = self.hs_font.render(score_formatted, True, self.text_color, None)
 
-        # Display the score in the midtop of the screen
+        # Display the score in the left of the screen
         self.high_score_rect = self.score_display.get_rect()
         self.high_score_rect.left = self.screen_rect.left
         self.high_score_rect.top = 50
