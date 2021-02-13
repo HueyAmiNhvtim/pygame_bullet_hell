@@ -3,7 +3,7 @@ from pygame.sprite import Group
 import sys
 import math
 
-# Maybe increase number of boolets to shoot per level. In the far future...
+# Maybe increase number of boolets to shoot per level. In the far future... DONE!
 from settings import Settings
 from ship import Ship
 from bullet_ship import Bullet
@@ -14,16 +14,16 @@ from scoreboard import Scoreboard
 
 
 # TO-DO: ship_hit in around line 87, uhm, should delete walrus one lest I want to use mask
-#        Summon aliens on both side of the screen. SYMMETRY FTW
-#        Make the aliens move on the screen using vectors.
+#        Summon aliens on both side of the screen. SYMMETRY FTW. ABANDONED!
+#        Make the aliens move on the screen using vectors.  DONE!
 #        With vectors maybe I can do what I want, provided I don't procrastinate
 #        by playing Spanish Dark Souls. AHHHHHHHHHHHHH
 # TO-DO:
-#       Make the ship blink faster...
-#       ship will be invincible to the boolets.
+#       Make the ship blink faster... nah,
+#       ship will be invincible to the boolets. DONE!
 #       Event queue for each aliens. Basically consist of events. Use deque for this, I guess. Use burst-left as
-#       indicator for a need to move onto another pattern.
-#       Make moar patterns.... The tri non-homing one, the 360 no scope one, and then, the, uhm...
+#       indicator for a need to move onto another pattern. DONE!
+#       Make moar patterns.... The tri non-homing one, the 360 no scope one, and then, the, uhm... 5 PATTERNS ALREADY
 # To be frank though, I'm kinda worried about my project...
 clock = pygame.time.Clock()
 
