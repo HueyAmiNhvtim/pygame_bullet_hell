@@ -168,7 +168,8 @@ class WhatIsThisAbomination:
         collision = self.ship.hit_box.colliderect(object_hit.actual_rect)
         if object_hit not in self.aliens:
             if actual_overlap and not self.ship.god_mode:
-                # Reward player for playing aggressively
+                # If the ship's core is in the mask with of the bullet, add score per FRAME.
+                # Similar to Touhou's grazing mechanics.
                 self.stats.score += self.settings.graze_increment
                 self.scoreboard.update_score()
                 self.scoreboard.check_high_score()
@@ -243,7 +244,7 @@ class WhatIsThisAbomination:
         if collisions:
             for alien in list(collisions.values())[0]:  # False warning
                 # Minus health everytime alien is hit, which the reason why there is
-                # the boolean False as the parameters
+                # the boolean False as the parameters for the aliens.
                 alien.health -= 1
                 if alien.health == 0:
                     self.aliens.remove(alien)

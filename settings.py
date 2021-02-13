@@ -1,5 +1,5 @@
 # ALL COOLDOWNS ARE MEASURED IN MILLISECONDS UNLESS EXPLICITLY TOLD OTHERWISE!
-# Maybe put the event queue there so every 2 levels add a new pattern to the aliens
+# Maybe put the event queue there so every 2 levels add a new pattern to the aliens DONE!
 
 
 class Settings:
