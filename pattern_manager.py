@@ -13,11 +13,14 @@ from collections import deque
 
 
 class PatternManager:
-    """A class for maintaining the alien's choice of bullet patterns"""
+    """A class for managing the alien's choice of bullet patterns"""
     def __init__(self, main_game, shooter):
         self.shooter = shooter
         self.settings = main_game.settings
+
+        self.cooldown_tick = 0
         self.pattern_cooldown = self.settings.pattern_cooldown
+
         self.pattern_choice = int(round(self.settings.pattern_choice))  # how many patterns aliens are allowed to choose
         self.pattern_tier = int(round(self.settings.pattern_tier))
 
@@ -31,10 +34,11 @@ class PatternManager:
                                  3: self.fourth_pattern, 4: self.fifth_pattern}
 
         self.event_deque = self._choose_pattern()
-        self.wait = False  # Wait to switch pattern
+        self.wait = False  # Flag sto switch pattern
         self.last_switch = pygame.time.get_ticks()
 
     def _choose_pattern(self):
+        """Create what patterns and when they are gonna be used for the alien"""
         tier_list = list(range(0, self.pattern_tier))
         keys = random.choices(tier_list, k=self.pattern_choice)
         event_list = deque()
@@ -60,4 +64,10 @@ class PatternManager:
         if now - self.last_switch >= self.pattern_cooldown:
             self.wait = False
 
+    def cooldown_checker(self):
+        """Using value increment rather than using the pygame.time.get_ticks() method"""
+        self.cooldown_tick += 1
+        if self.cooldown_tick == self.pattern_cooldown:
+            self.wait = False
+            self.cooldown_tick = 0
 
