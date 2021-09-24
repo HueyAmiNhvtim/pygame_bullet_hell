@@ -37,6 +37,7 @@ class Alien(Sprite):
         self.destination = [0, 0]
 
         # cooldown and last_time stuff
+        self.movement_clock = pygame.time.Clock()
         self.movement_cooldown = self.settings.movement_cooldown
         self.last_time = pygame.time.get_ticks()
 
