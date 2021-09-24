@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Discarded project files:
+th14/
+testing_stuff/
+stuff/
+discarded/
