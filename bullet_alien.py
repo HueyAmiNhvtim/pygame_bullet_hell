@@ -73,7 +73,8 @@ class BulletAlienCuatro(BulletAlienUno):
         self.bullet_hitbox = pygame.Surface(size=(4, 4))  # True hitbox of bullet for some sick bullet dodging
         self.bullet_rect = self.bullet_hitbox.get_rect()
         self.mask = pygame.mask.from_surface(self.bullet_hitbox)
-        self.main_game = main_game  # Hopefully this won't slow down the game
+        self.main_game = main_game  # Hopefully this won't slow down the game. Trust me, it's just the memory address.
+                                                                             # Nothing much - Uni self
 
         # Homing purpose
         self.update_cooldown = main_game.settings.homing_update_tick  # I don't know if that's the right word to use

@@ -8,9 +8,10 @@ from collections import deque
 # TO-DO: Maybe do sth like this:
 # Set a random point within the boundary of the screen.
 # Create a vector heading towards that point.
-# Head using the speed specified in the settings. I suppose you can can used magnitude as
+# Head using the speed specified in the settings. I suppose you can can use magnitude as
 # the speed of the alien, which should conform with the settings.
 # Once reached, spam boolets and then move to a new position.
+# Done.... Confirmed by Uni self two years later....
 
 
 class Alien(Sprite):
@@ -50,7 +51,7 @@ class Alien(Sprite):
         self.shoot = True  # Disable shooting after exhausting the current pattern's burst
         self.confirmed_switch = True  # Confirming that a switch has taken place
 
-        # Initiating pattern manager
+        # Initiating pattern manager for handling what bullet pattern the alien will use
         self.pattern_manager = PatternManager(main_game, self)
 
         # For the health tooltip:
@@ -76,7 +77,7 @@ class Alien(Sprite):
             self.last_time = pygame.time.get_ticks()
 
     def create_destination_and_vector(self):
-        """Upon creation of alien and when alien reaches a destination, create a new one"""
+        """Upon creation of alien and when alien reaches a destination, create a new movement vector"""
         self.destination[0] = numpy.random.randint(0, self.boundary_x[1])
         self.destination[1] = numpy.random.randint(self.boundary_y[0], self.boundary_y[1])
         self.vector[0] = self.destination[0] - self.rect.x
@@ -87,7 +88,7 @@ class Alien(Sprite):
         time_now = pygame.time.get_ticks()
         # Use Vector to calculate the distance between the alien and the destination
         dist_between_ob_dis = Vector2(self.destination[0] - self.rect.x, self.destination[1] - self.rect.y).magnitude()
-        # Alien_speed will act as a proximity surrounding the destination.
+        # Alien_speed will act as a proximity surrounding the destination. lol. Grade 12 me is weird.... - Uni self
         if self.confirmed_switch and dist_between_ob_dis <= self.settings.alien_speed:
             self.movement_disabled = True
             # Make sure that the manager does not constantly switch pattern while object stops
